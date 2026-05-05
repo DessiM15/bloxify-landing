@@ -48,11 +48,14 @@ const features = [
 
 export default function WhyBloxify() {
   return (
-    <section className="relative py-24 px-4 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-24 px-4 bg-white overflow-hidden">
+      <div className="absolute top-1/2 -right-32 w-96 h-96 bg-block-orange/5 rounded-full blur-3xl" />
+      <div className="absolute -bottom-10 left-1/4 w-72 h-72 bg-block-red/5 rounded-full blur-3xl" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <AnimatedSection>
           <SectionHeading
-            title="Why Bloxify?"
+            title={<><span className="text-navy">Why </span><span className="text-gradient">Bloxify</span><span className="text-navy">?</span></>}
             subtitle="We built the block puzzle game we always wanted to play."
             variant="light"
           />
@@ -61,8 +64,8 @@ export default function WhyBloxify() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, i) => (
             <AnimatedSection key={feature.title} delay={i * 0.1}>
-              <div className="rounded-2xl p-6 h-full text-center border border-navy/8 bg-gray-50/50">
-                <div className="mb-4 flex justify-center">{feature.icon}</div>
+              <div className="rounded-2xl p-6 h-full text-center border border-navy/8 bg-gradient-to-b from-coral/5 to-white">
+                <div className="mb-4 flex justify-center w-12 h-12 rounded-xl bg-coral/10 mx-auto items-center">{feature.icon}</div>
                 <h3 className="text-lg font-bold text-navy mb-2">
                   {feature.title}
                 </h3>

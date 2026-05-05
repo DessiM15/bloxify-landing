@@ -36,7 +36,7 @@ export default function Soundtrack() {
       <div className="max-w-7xl mx-auto">
         <AnimatedSection>
           <SectionHeading
-            title="We Support Artists"
+            title={<><span className="text-cream">We Support </span><span className="text-gradient">Artists</span></>}
             subtitle="Great games deserve great music. We partner with independent artists to bring original soundtracks to every mode — and give creators a platform to be heard."
           />
         </AnimatedSection>

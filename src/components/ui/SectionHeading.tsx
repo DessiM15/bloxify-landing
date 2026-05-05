@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 interface SectionHeadingProps {
-  title: string;
+  title: ReactNode;
   subtitle?: string;
   align?: "center" | "left";
   variant?: "dark" | "light";
@@ -11,12 +13,11 @@ export default function SectionHeading({
   align = "center",
   variant = "dark",
 }: SectionHeadingProps) {
-  const titleColor = variant === "light" ? "text-navy" : "text-cream";
   const subtitleColor = variant === "light" ? "text-navy/60" : "text-cream-dim";
 
   return (
     <div className={`mb-12 ${align === "center" ? "text-center" : "text-left"}`}>
-      <h2 className={`text-3xl font-bold sm:text-4xl lg:text-5xl ${titleColor}`}>
+      <h2 className="text-3xl font-extrabold sm:text-4xl lg:text-5xl">
         {title}
       </h2>
       {subtitle && (

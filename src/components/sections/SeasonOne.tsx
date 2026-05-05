@@ -73,7 +73,7 @@ export default function SeasonOne() {
       <div className="max-w-7xl mx-auto relative z-10">
         <AnimatedSection>
           <SectionHeading
-            title="Season One: First Bloom"
+            title={<><span className="text-cream">Season One: </span><span className="text-gradient">First Bloom</span></>}
             subtitle="Our inaugural season celebrates spring with exclusive rewards, challenges, and cosmetics."
           />
         </AnimatedSection>

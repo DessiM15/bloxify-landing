@@ -50,11 +50,15 @@ export default function GameModes() {
   const { activeIndex, setActiveIndex, setIsPaused, next, prev } = useCarousel(modes.length, 4000);
 
   return (
-    <section id="modes" className="relative py-24 px-4 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section id="modes" className="relative py-24 px-4 bg-white overflow-hidden">
+      {/* Decorative background shapes */}
+      <div className="absolute -top-20 -right-20 w-80 h-80 bg-coral/5 rounded-full blur-3xl" />
+      <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-block-blue/5 rounded-full blur-3xl" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <AnimatedSection>
           <SectionHeading
-            title="Three Ways to Play"
+            title={<><span className="text-navy">Three Ways to </span><span className="text-gradient">Play</span></>}
             subtitle="Whether you have 90 seconds or 90 minutes, there's a mode that fits."
             variant="light"
           />

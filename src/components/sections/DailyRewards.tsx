@@ -48,11 +48,14 @@ const features = [
 
 export default function DailyRewards() {
   return (
-    <section className="relative py-24 px-4 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-24 px-4 bg-white overflow-hidden">
+      <div className="absolute -top-16 left-1/3 w-80 h-80 bg-block-blue/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 -right-20 w-72 h-72 bg-coral/5 rounded-full blur-3xl" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <AnimatedSection>
           <SectionHeading
-            title="Play Every Day, Earn Every Day"
+            title={<><span className="text-navy">Play Every Day, </span><span className="text-gradient">Earn Every Day</span></>}
             subtitle="A living game with fresh content, competitive rankings, and social features that keep you coming back."
             variant="light"
           />

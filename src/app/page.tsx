@@ -1,5 +1,6 @@
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
+import Countdown from "@/components/sections/Countdown";
 import GameModes from "@/components/sections/GameModes";
 import WhyBloxify from "@/components/sections/WhyBloxify";
 import AdventureMode from "@/components/sections/AdventureMode";
@@ -15,6 +16,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
+        <Countdown />
         <GameModes />
         <AdventureMode />
         <WhyBloxify />

@@ -113,6 +113,21 @@ html {
   scrollbar-width: none;
 }
 
+/* Gradient text utility */
+.text-gradient {
+  background: linear-gradient(135deg, var(--coral) 0%, var(--block-orange) 50%, var(--block-red) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, var(--block-blue) 0%, #6C5CE7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* Custom selection color */
 ::selection {
   background: rgba(255, 127, 80, 0.3);

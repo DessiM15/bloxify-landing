@@ -67,7 +67,7 @@ export default function AdventureMode() {
       <div className="max-w-7xl mx-auto">
         <AnimatedSection>
           <SectionHeading
-            title="Adventure Mode"
+            title={<><span className="text-cream">Adventure </span><span className="text-gradient">Mode</span></>}
             subtitle="Journey through six handcrafted realms — each with unique block mechanics, boss puzzles, and unlock rewards."
           />
         </AnimatedSection>
