@@ -1,10 +1,15 @@
+"use client";
+
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface DeviceMockupProps {
   screenshot?: string;
+  video?: string;
+  videoKey?: number;
 }
 
-export default function DeviceMockup({ screenshot }: DeviceMockupProps) {
+export default function DeviceMockup({ screenshot, video, videoKey }: DeviceMockupProps) {
   return (
     <div className="relative mx-auto w-[260px] sm:w-[280px]">
       {/* Outer bezel — thick dark navy frame */}
@@ -34,9 +39,29 @@ export default function DeviceMockup({ screenshot }: DeviceMockupProps) {
                   fill
                   className="object-cover"
                 />
+              ) : video && videoKey !== undefined ? (
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={videoKey}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4 }}
+                    className="absolute inset-0"
+                  >
+                    <video
+                      src={video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                </AnimatePresence>
               ) : (
                 <video
-                  src="/videos/hero-gameplay.mp4"
+                  src={video || "/videos/hero-gameplay.mp4"}
                   autoPlay
                   loop
                   muted
