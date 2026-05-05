@@ -2,11 +2,10 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import AnimatedSection from "../ui/AnimatedSection";
 import WaitlistForm from "../ui/WaitlistForm";
 
-const SHARE_TEXT = "Bloxify drops May 6 — count down with us!";
+const SHARE_TEXT = "Bloxify is coming soon to Google Play — join the waitlist!";
 
 function getShareUrl() {
   if (typeof window === "undefined") return "";
@@ -15,10 +14,25 @@ function getShareUrl() {
 
 function ShareButtons() {
   const [copied, setCopied] = useState(false);
+  const [canNativeShare, setCanNativeShare] = useState(false);
 
   const shareUrl = getShareUrl();
-  const encodedText = encodeURIComponent(SHARE_TEXT);
-  const encodedUrl = encodeURIComponent(shareUrl);
+
+  useEffect(() => {
+    setCanNativeShare(typeof navigator !== "undefined" && !!navigator.share);
+  }, []);
+
+  const nativeShare = async () => {
+    try {
+      await navigator.share({
+        title: "Bloxify",
+        text: SHARE_TEXT,
+        url: shareUrl,
+      });
+    } catch {
+      // User cancelled or API unavailable — fall through silently
+    }
+  };
 
   const copyLink = () => {
     navigator.clipboard.writeText(`${SHARE_TEXT} ${shareUrl}`);
@@ -26,59 +40,27 @@ function ShareButtons() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const shareViaText = () => {
-    window.open(`sms:?&body=${encodedText}%20${encodedUrl}`, "_blank");
-  };
-
   return (
     <div className="flex flex-col items-center gap-5">
-      <p className="text-cream-dim text-sm font-medium uppercase tracking-widest">Share the Countdown</p>
+      <p className="text-cream-dim text-sm font-medium uppercase tracking-widest">Spread the Word</p>
       <div className="flex flex-wrap justify-center gap-3">
-        {/* Facebook */}
-        <a
-          href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group flex items-center gap-2 bg-[#1877F2] hover:bg-[#166FE5] text-white font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 shadow-lg"
-        >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-          </svg>
-          Facebook
-        </a>
-
-        {/* Instagram (opens app/profile - no direct share API, so we copy + open) */}
-        <button
-          onClick={() => {
-            navigator.clipboard.writeText(`${SHARE_TEXT} ${shareUrl}`);
-            window.open("https://www.instagram.com/", "_blank");
-          }}
-          className="group flex items-center gap-2 bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] hover:opacity-90 text-white font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 shadow-lg cursor-pointer"
-        >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-          </svg>
-          Instagram
-        </button>
-
-        {/* TikTok */}
-        <button
-          onClick={() => {
-            navigator.clipboard.writeText(`${SHARE_TEXT} ${shareUrl}`);
-            window.open("https://www.tiktok.com/", "_blank");
-          }}
-          className="group flex items-center gap-2 bg-black hover:bg-gray-900 text-white font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 shadow-lg cursor-pointer"
-        >
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.46V13a8.28 8.28 0 005.58 2.16v-3.45a4.85 4.85 0 01-2.65-.78 4.83 4.83 0 01-1.35-1.24V6.69h3z"/>
-          </svg>
-          TikTok
-        </button>
+        {/* Native Share (mobile) */}
+        {canNativeShare && (
+          <button
+            onClick={nativeShare}
+            className="group flex items-center gap-2 bg-coral hover:bg-coral-dark text-navy font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 cursor-pointer shadow-lg shadow-coral/25"
+          >
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15M12 15V3m0 0l-3 3m3-3l3 3" />
+            </svg>
+            Share
+          </button>
+        )}
 
         {/* Copy Link */}
         <button
           onClick={copyLink}
-          className="group flex items-center gap-2 bg-coral hover:bg-coral-dark text-navy font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 cursor-pointer shadow-lg shadow-coral/25"
+          className="group flex items-center gap-2 bg-cream/10 hover:bg-cream/20 text-cream font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 cursor-pointer border border-cream/20"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             {copied ? (
@@ -89,135 +71,12 @@ function ShareButtons() {
           </svg>
           {copied ? "Copied!" : "Copy Link"}
         </button>
-
-        {/* Text Message */}
-        <button
-          onClick={shareViaText}
-          className="group flex items-center gap-2 bg-[#34C759] hover:bg-[#2DB84D] text-white font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 cursor-pointer shadow-lg"
-        >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
-          </svg>
-          Text Message
-        </button>
       </div>
     </div>
   );
 }
 
-const LAUNCH_DATE = new Date("2026-05-06T12:00:00-05:00").getTime();
 
-function getTimeLeft() {
-  const now = Date.now();
-  const diff = Math.max(0, LAUNCH_DATE - now);
-  return {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((diff / (1000 * 60)) % 60),
-    seconds: Math.floor((diff / 1000) % 60),
-  };
-}
-
-function isLaunched() {
-  return Date.now() >= LAUNCH_DATE;
-}
-
-/* ─── Confetti particle config ─── */
-const CONFETTI_COLORS = ["#FF7F50", "#E24B4A", "#EF9F27", "#378ADD", "#FFE4D6", "#34C759", "#FF6B9D", "#6C5CE7"];
-const confettiParticles = Array.from({ length: 60 }, (_, i) => ({
-  id: i,
-  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
-  left: `${Math.random() * 100}%`,
-  delay: Math.random() * 3,
-  duration: 2.5 + Math.random() * 2,
-  size: 6 + Math.random() * 8,
-  rotation: Math.random() * 360,
-  drift: (Math.random() - 0.5) * 120,
-}));
-
-function CelebrationView() {
-  return (
-    <div className="text-center relative">
-      {/* Confetti */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {confettiParticles.map((p) => (
-          <motion.div
-            key={p.id}
-            className="absolute rounded-sm"
-            style={{
-              left: p.left,
-              top: -20,
-              width: p.size,
-              height: p.size * 0.6,
-              backgroundColor: p.color,
-              rotate: p.rotation,
-            }}
-            animate={{
-              y: [0, 600],
-              x: [0, p.drift],
-              rotate: [p.rotation, p.rotation + 360],
-              opacity: [1, 1, 0],
-            }}
-            transition={{
-              duration: p.duration,
-              delay: p.delay,
-              repeat: Infinity,
-              ease: "easeIn",
-            }}
-          />
-        ))}
-      </div>
-
-      <motion.div
-        initial={{ scale: 0, rotate: -10 }}
-        animate={{ scale: 1, rotate: 0 }}
-        transition={{ type: "spring", stiffness: 200, damping: 12 }}
-      >
-        <p className="text-5xl sm:text-6xl mb-4">🎉🎮🎉</p>
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4">
-          <span className="bg-gradient-to-r from-coral via-block-orange to-block-red bg-clip-text text-transparent">
-            We&apos;re Live!
-          </span>
-        </h2>
-        <p className="text-cream-dim text-lg sm:text-xl mb-8 max-w-md mx-auto">
-          Bloxify is officially available on Google Play. The puzzle adventure starts now!
-        </p>
-      </motion.div>
-
-      <motion.a
-        href="https://play.google.com/store/apps/details?id=com.bloxify.app"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-3 bg-coral hover:bg-coral-dark text-navy font-bold text-lg px-8 py-4 rounded-full transition-colors shadow-lg shadow-coral/25"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-      >
-        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M3.18 1.16L13.7 11.7 3.55 22.13c-.47-.36-.55-.98-.55-1.57V2.44c0-.49.06-1 .18-1.28zM14.65 12.65l2.58 2.58-9.87 5.63 7.29-8.21zm3.53-1.9l3.2 1.83c.63.36.63 1.21 0 1.57l-3.54 2.02-2.83-2.83 3.17-2.59zM5.03.26L14.65 5.7l-2.58 2.58L5.03.26z"/>
-        </svg>
-        Download on Google Play
-      </motion.a>
-
-      <div className="flex items-center justify-center gap-3 mt-10">
-        <div className="w-28 h-28 relative">
-          <Image
-            src="/images/mascot/blox_celebrating.png"
-            alt="Blox celebrating"
-            width={112}
-            height={112}
-            className="drop-shadow-md"
-          />
-        </div>
-        <p className="text-cream-dim text-lg sm:text-xl font-medium">
-          Let&apos;s go! 🥳
-        </p>
-      </div>
-    </div>
-  );
-}
-
-const blockColors = ["bg-block-red", "bg-block-orange", "bg-block-blue", "bg-coral"] as const;
 
 const blobConfigs = [
   { baseX: 10, baseY: 25, intensity: 1, color: "bg-block-red/20", size: "w-80 h-80" },
@@ -226,19 +85,8 @@ const blobConfigs = [
 ];
 
 export default function Countdown() {
-  const [time, setTime] = useState(getTimeLeft);
-  const [launched, setLaunched] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const blobRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    setLaunched(isLaunched());
-    const timer = setInterval(() => {
-      setTime(getTimeLeft());
-      if (isLaunched()) setLaunched(true);
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   // Direct DOM manipulation for smooth 60fps mouse tracking
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
@@ -255,13 +103,6 @@ export default function Countdown() {
       el.style.transform = `translate(-50%, -50%) translate(${offsetX}px, ${offsetY}px)`;
     });
   }, []);
-
-  const units = [
-    { label: "Days", value: time.days },
-    { label: "Hours", value: time.hours },
-    { label: "Minutes", value: time.minutes },
-    { label: "Seconds", value: time.seconds },
-  ];
 
   return (
     <section
@@ -286,80 +127,54 @@ export default function Countdown() {
       ))}
 
       <div className="max-w-4xl mx-auto relative z-10">
-        {launched ? (
-          <CelebrationView />
-        ) : (
-          <>
-            <AnimatedSection>
-              <div className="text-center mb-10">
-                <p className="text-coral font-bold text-sm uppercase tracking-widest mb-3">
-                  Launching on Google Play
-                </p>
-                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold">
-                  <span className="text-cream">May 6, </span>
-                  <span className="bg-gradient-to-r from-coral via-block-orange to-block-red bg-clip-text text-transparent">2026</span>
-                </h2>
-              </div>
-            </AnimatedSection>
+        <AnimatedSection>
+          <div className="text-center mb-10">
+            <p className="text-coral font-bold text-sm uppercase tracking-widest mb-3">
+              Launching on Google Play
+            </p>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold">
+              <span className="bg-gradient-to-r from-coral via-block-orange to-block-red bg-clip-text text-transparent">Coming Soon</span>
+            </h2>
+            <p className="text-cream-dim text-base sm:text-lg mt-4 max-w-md mx-auto">
+              We&apos;ll update you if it&apos;s sooner!
+            </p>
+          </div>
+        </AnimatedSection>
 
-            <AnimatedSection delay={0.15}>
-              <div className="flex justify-center gap-3 sm:gap-5">
-                {units.map((unit, i) => (
-                  <div key={unit.label} className="text-center">
-                    <div
-                      className={`${blockColors[i]} rounded-2xl w-[72px] h-[80px] sm:w-[100px] sm:h-[110px] lg:w-[120px] lg:h-[130px] flex items-center justify-center shadow-lg relative`}
-                      style={{ boxShadow: `0 6px 0 rgba(0,0,0,0.2), 0 8px 20px rgba(0,0,0,0.3)` }}
-                    >
-                      {/* Block shine effect */}
-                      <div className="absolute top-0 left-0 right-0 h-1/3 bg-white/15 rounded-t-2xl" />
-                      <span className="text-white text-3xl sm:text-5xl lg:text-6xl font-extrabold relative z-10 tabular-nums">
-                        {String(unit.value).padStart(2, "0")}
-                      </span>
-                    </div>
-                    <p className="text-cream-dim text-xs sm:text-sm font-semibold mt-3 uppercase tracking-wider">
-                      {unit.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </AnimatedSection>
+        <AnimatedSection delay={0.15}>
+          <div className="flex flex-col items-center max-w-md mx-auto">
+            <p className="text-cream text-lg sm:text-xl font-bold mb-3 text-center">
+              Get notified when we launch
+            </p>
+            <WaitlistForm
+              variant="glass"
+              placeholder="Enter your email"
+              buttonText="Notify Me"
+              successMessage="You're on the list! We'll notify you when we launch."
+            />
+          </div>
+        </AnimatedSection>
 
-            <AnimatedSection delay={0.25}>
-              <div className="flex flex-col items-center mt-10 max-w-md mx-auto">
-                <p className="text-cream text-lg sm:text-xl font-bold mb-3 text-center">
-                  Get notified when we launch
-                </p>
-                <WaitlistForm
-                  variant="glass"
-                  placeholder="Enter your email"
-                  buttonText="Notify Me"
-                  successMessage="You're on the list! We'll email you on launch day."
+        <AnimatedSection delay={0.3}>
+          <div className="flex flex-col items-center mt-10 gap-6">
+            <div className="flex items-center gap-3">
+              <div className="w-28 h-28 relative">
+                <Image
+                  src="/images/mascot/blox_celebrating.png"
+                  alt="Blox"
+                  width={112}
+                  height={112}
+                  className="drop-shadow-md"
                 />
               </div>
-            </AnimatedSection>
+              <p className="text-cream-dim text-lg sm:text-xl font-medium">
+                Stay tuned!
+              </p>
+            </div>
 
-            <AnimatedSection delay={0.4}>
-              <div className="flex flex-col items-center mt-10 gap-6">
-                <div className="flex items-center gap-3">
-                  <div className="w-28 h-28 relative">
-                    <Image
-                      src="/images/mascot/blox_celebrating.png"
-                      alt="Blox"
-                      width={112}
-                      height={112}
-                      className="drop-shadow-md"
-                    />
-                  </div>
-                  <p className="text-cream-dim text-lg sm:text-xl font-medium">
-                    Count down with us!
-                  </p>
-                </div>
-
-                <ShareButtons />
-              </div>
-            </AnimatedSection>
-          </>
-        )}
+            <ShareButtons />
+          </div>
+        </AnimatedSection>
       </div>
     </section>
   );
