@@ -6,12 +6,22 @@ import AnimatedSection from "../ui/AnimatedSection";
 import SectionHeading from "../ui/SectionHeading";
 import GameGridBg from "../ui/GameGridBg";
 
-// Placeholder theme previews — replace with real screenshots later
 const themes = [
-  { name: "Aurora Night", color: "from-indigo-900 to-purple-800" },
-  { name: "Neo-Tokyo", color: "from-pink-900 to-gray-900" },
-  { name: "Emerald Forest", color: "from-green-900 to-emerald-800" },
-  { name: "Sunset Beach", color: "from-orange-800 to-rose-700" },
+  {
+    theme: "Galaxy Theme",
+    background: "Neon City Background",
+    video: "/videos/galaxy-neon-city.mp4",
+  },
+  {
+    theme: "Nature & Zen Theme",
+    background: "Quiet Stone Background",
+    video: "/videos/nature-zen-quiet-stone.mp4",
+  },
+  {
+    theme: "Unstoppable Theme",
+    background: "Deep Ocean Background",
+    video: "/videos/unstoppable-deep-ocean.mp4",
+  },
 ];
 
 const coinColors = ["#FFD700", "#FFC107", "#FFB300", "#FFCA28"] as const;
@@ -76,63 +86,70 @@ export default function MakeItYours() {
           />
         </AnimatedSection>
 
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          {/* Left: Video placeholder — store browsing recording */}
+        {/* Desktop: side by side | Mobile: single carousel alternating both */}
+        <div className="hidden lg:flex items-center gap-12">
+          {/* Left: Phone mockup with store recording */}
           <AnimatedSection delay={0.1} className="flex-1 w-full">
-            <div className="relative w-full aspect-[9/16] max-w-[280px] mx-auto rounded-2xl overflow-hidden bg-navy-light border-2 border-navy/10">
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-navy-light to-navy">
-                {/* Placeholder content */}
-                <div className="w-16 h-16 rounded-full bg-coral/20 flex items-center justify-center">
-                  <svg className="w-8 h-8 text-coral ml-1" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-                <p className="text-cream/50 text-sm font-medium text-center px-4">
-                  Store browsing video
-                </p>
-                <p className="text-cream/30 text-xs">
-                  (Recording placeholder)
-                </p>
-              </div>
-            </div>
+            <PhoneMockup>
+              <video
+                src="/videos/theme-store-recording.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+              />
+            </PhoneMockup>
           </AnimatedSection>
 
-          {/* Right: Auto-changing theme gallery */}
+          {/* Right: Theme video carousel in phone mockup */}
           <AnimatedSection delay={0.2} className="flex-1 w-full">
             <div className="space-y-4">
-              <p className="text-navy/40 text-xs font-semibold uppercase tracking-widest mb-2">
-                Themes Preview
+              <p className="text-navy/40 text-xs font-semibold uppercase tracking-widest mb-2 text-center">
+                Themes & Backgrounds
               </p>
 
-              <div className="h-[280px] relative">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={themeIndex}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -30 }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute inset-0"
-                  >
-                    {/* Placeholder theme image — replace with real screenshots */}
-                    <div className={`w-full h-full rounded-xl bg-gradient-to-br ${themes[themeIndex].color} flex items-center justify-center relative overflow-hidden`}>
-                      {/* Fake grid overlay */}
-                      <div className="absolute inset-4 grid grid-cols-8 grid-rows-8 gap-0.5 opacity-30">
-                        {Array.from({ length: 64 }, (_, i) => (
-                          <div key={i} className="bg-white/10 rounded-sm" />
-                        ))}
-                      </div>
-                      <div className="relative z-10 text-center">
-                        <p className="text-white font-bold text-lg">{themes[themeIndex].name}</p>
-                        <p className="text-white/60 text-xs mt-1">Theme Preview</p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
+              <div className="relative">
+                <PhoneMockup landscape>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={themeIndex}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.4 }}
+                      className="absolute inset-0"
+                    >
+                      <video
+                        src={themes[themeIndex].video}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+                </PhoneMockup>
               </div>
 
-              {/* Theme dots */}
-              <div className="flex gap-2">
+              {/* Theme & Background labels */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={themeIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-center"
+                >
+                  <p className="text-navy font-bold text-base">{themes[themeIndex].theme}</p>
+                  <p className="text-navy/50 text-sm">{themes[themeIndex].background}</p>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Navigation dots */}
+              <div className="flex gap-2 justify-center">
                 {themes.map((_, i) => (
                   <button
                     key={i}
@@ -146,14 +163,152 @@ export default function MakeItYours() {
                   />
                 ))}
               </div>
-
-              <p className="text-navy/40 text-sm mt-4">
-                New music packages coming soon — unlock exclusive soundtracks by your favorite indie artists.
-              </p>
             </div>
           </AnimatedSection>
         </div>
+
+        {/* Mobile: Single alternating view */}
+        <MobileCarousel />
       </div>
     </section>
+  );
+}
+
+/* ─── Android Phone Mockup ─── */
+function PhoneMockup({
+  children,
+  landscape = false,
+}: {
+  children: React.ReactNode;
+  landscape?: boolean;
+}) {
+  const aspectClass = landscape ? "aspect-video" : "aspect-[9/16]";
+  const maxWidthClass = landscape ? "max-w-[400px]" : "max-w-[280px]";
+
+  return (
+    <div className={`relative ${maxWidthClass} mx-auto`}>
+      {/* Outer bezel */}
+      <div className="rounded-[2.5rem] border-[3px] border-gray-800 bg-gray-900 p-[3px] shadow-2xl">
+        {/* Inner frame */}
+        <div className="rounded-[2.2rem] border border-gray-700 overflow-hidden relative">
+          {/* Status bar area */}
+          <div className="absolute top-0 left-0 right-0 z-20 h-6 bg-black/60 backdrop-blur-sm flex items-center justify-between px-5">
+            <span className="text-white/70 text-[9px] font-medium">12:00</span>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-2 border border-white/70 rounded-sm relative">
+                <div className="absolute inset-0.5 bg-white/70 rounded-[1px]" />
+              </div>
+            </div>
+          </div>
+
+          {/* Camera notch */}
+          <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-20 w-16 h-4 bg-black rounded-full flex items-center justify-center">
+            <div className="w-2 h-2 rounded-full bg-gray-700 border border-gray-600" />
+          </div>
+
+          {/* Video content */}
+          <div className={`${aspectClass} w-full bg-black relative overflow-hidden`}>
+            {children}
+          </div>
+
+          {/* Bottom nav bar */}
+          <div className="absolute bottom-0 left-0 right-0 z-20 h-5 bg-black/40 backdrop-blur-sm flex items-center justify-center">
+            <div className="w-24 h-1 bg-white/40 rounded-full" />
+          </div>
+        </div>
+      </div>
+
+      {/* Side buttons */}
+      <div className="absolute top-20 -right-[2px] w-[3px] h-8 bg-gray-700 rounded-r-sm" />
+      <div className="absolute top-16 -left-[2px] w-[3px] h-6 bg-gray-700 rounded-l-sm" />
+      <div className="absolute top-24 -left-[2px] w-[3px] h-10 bg-gray-700 rounded-l-sm" />
+    </div>
+  );
+}
+
+/* ─── Mobile Carousel: Alternates store + themes ─── */
+function MobileCarousel() {
+  const [slideIndex, setSlideIndex] = useState(0);
+  // 0 = store, 1-3 = themes
+  const totalSlides = 1 + themes.length;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlideIndex((prev) => (prev + 1) % totalSlides);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, [totalSlides]);
+
+  const isStore = slideIndex === 0;
+  const currentTheme = !isStore ? themes[slideIndex - 1] : null;
+
+  return (
+    <div className="lg:hidden">
+      <AnimatedSection delay={0.1} className="w-full">
+        <div className="space-y-4">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={slideIndex}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -40 }}
+              transition={{ duration: 0.4 }}
+            >
+              {isStore ? (
+                <div className="text-center space-y-3">
+                  <p className="text-navy/40 text-xs font-semibold uppercase tracking-widest">
+                    Theme Store
+                  </p>
+                  <PhoneMockup>
+                    <video
+                      src="/videos/theme-store-recording.mp4"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  </PhoneMockup>
+                </div>
+              ) : (
+                <div className="text-center space-y-3">
+                  <p className="text-navy/40 text-xs font-semibold uppercase tracking-widest">
+                    Themes & Backgrounds
+                  </p>
+                  <PhoneMockup landscape>
+                    <video
+                      src={currentTheme!.video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  </PhoneMockup>
+                  <p className="text-navy font-bold text-base">{currentTheme!.theme}</p>
+                  <p className="text-navy/50 text-sm">{currentTheme!.background}</p>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation dots */}
+          <div className="flex gap-2 justify-center mt-4">
+            {Array.from({ length: totalSlides }, (_, i) => (
+              <button
+                key={i}
+                onClick={() => setSlideIndex(i)}
+                className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                  i === slideIndex
+                    ? "bg-coral w-6"
+                    : "bg-navy/20 hover:bg-navy/40 w-2"
+                }`}
+                aria-label={`Slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </AnimatedSection>
+    </div>
   );
 }
