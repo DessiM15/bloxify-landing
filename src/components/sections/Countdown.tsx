@@ -77,7 +77,7 @@ export default function Countdown() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.3}>
-          <div className="flex justify-center mt-10">
+          <div className="flex flex-col items-center mt-10 gap-4">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 relative">
                 <Image
@@ -89,9 +89,28 @@ export default function Countdown() {
                 />
               </div>
               <p className="text-cream-dim text-sm">
-                Share this page and count down with us!
+                Count down with us!
               </p>
             </div>
+
+            <button
+              onClick={() => {
+                const url = window.location.origin + "/#countdown";
+                const text = "Bloxify drops May 5 — count down with us!";
+                if (navigator.share) {
+                  navigator.share({ title: "Bloxify Countdown", text, url });
+                } else {
+                  navigator.clipboard.writeText(`${text} ${url}`);
+                  alert("Link copied!");
+                }
+              }}
+              className="group flex items-center gap-2.5 bg-coral hover:bg-coral-dark text-navy font-bold text-sm px-6 py-3 rounded-full transition-all hover:scale-105 cursor-pointer shadow-lg shadow-coral/25"
+            >
+              <svg className="w-4.5 h-4.5 transition-transform group-hover:-rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+              </svg>
+              Share the Countdown
+            </button>
           </div>
         </AnimatedSection>
       </div>
