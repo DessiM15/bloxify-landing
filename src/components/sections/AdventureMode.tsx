@@ -14,6 +14,7 @@ const realms = [
     story: "Deep within the emerald canopy, the first piece of Blox pulses with life.",
     image: "/images/realms/realm1.png",
     number: 1,
+    gradient: "from-green-950 via-emerald-900 to-green-950",
   },
   {
     name: "The Shifting Sands",
@@ -21,6 +22,7 @@ const realms = [
     story: "Beneath the endless dunes, a shard glints in the scorching heat.",
     image: "/images/realms/realm2.png",
     number: 2,
+    gradient: "from-amber-950 via-yellow-900 to-orange-950",
   },
   {
     name: "The Abyssal Ocean",
@@ -28,6 +30,7 @@ const realms = [
     story: "In the crushing depths, bioluminescent light guides the way to the third shard.",
     image: "/images/realms/realm3.png",
     number: 3,
+    gradient: "from-blue-950 via-cyan-900 to-blue-950",
   },
   {
     name: "The Molten Caldera",
@@ -35,6 +38,7 @@ const realms = [
     story: "Lava cascades past obsidian walls. The fourth piece burns, waiting to be claimed.",
     image: "/images/realms/realm4.png",
     number: 4,
+    gradient: "from-red-950 via-orange-900 to-red-950",
   },
   {
     name: "The Cosmic Drift",
@@ -42,6 +46,7 @@ const realms = [
     story: "Among the stars, the fifth shard orbits a dying sun — drifting, waiting.",
     image: "/images/realms/realm5.png",
     number: 5,
+    gradient: "from-purple-950 via-indigo-900 to-violet-950",
   },
   {
     name: "The Void",
@@ -49,6 +54,7 @@ const realms = [
     story: "The final piece was swallowed by nothingness itself. Enter The Void.",
     image: "/images/realms/realm6.png",
     number: 6,
+    gradient: "from-gray-950 via-zinc-900 to-black",
   },
 ];
 
@@ -60,11 +66,22 @@ const stats = [
 ];
 
 export default function AdventureMode() {
-  const { activeIndex, setActiveIndex, setIsPaused } = useCarousel(realms.length, 4000);
+  const { activeIndex, setActiveIndex, setIsPaused, next, prev } = useCarousel(realms.length, 4000);
 
   return (
-    <section className="relative py-24 px-4">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative py-24 px-4 overflow-hidden">
+      {/* Animated gradient background that transitions per realm */}
+      <div className="absolute inset-0 transition-all duration-1000 ease-in-out">
+        {realms.map((realm, i) => (
+          <div
+            key={i}
+            className={`absolute inset-0 bg-gradient-to-br ${realm.gradient} transition-opacity duration-1000`}
+            style={{ opacity: i === activeIndex ? 1 : 0 }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <AnimatedSection>
           <SectionHeading
             title={<><span className="text-cream">Adventure </span><span className="text-gradient">Mode</span></>}
@@ -87,12 +104,32 @@ export default function AdventureMode() {
           </div>
         </AnimatedSection>
 
-        {/* Full-width realm gallery */}
+        {/* Full-width realm gallery — sharp corners */}
         <div
-          className="relative rounded-2xl overflow-hidden"
+          className="relative overflow-hidden"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
+          {/* Prev/Next arrows */}
+          <button
+            onClick={prev}
+            className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-coral hover:bg-black/50 transition-all cursor-pointer"
+            aria-label="Previous realm"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M12 15L7 10L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/30 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-coral hover:bg-black/50 transition-all cursor-pointer"
+            aria-label="Next realm"
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M8 5L13 10L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+
           <div className="relative aspect-[16/9] sm:aspect-[21/9]">
             <AnimatePresence mode="wait">
               <motion.div
@@ -113,7 +150,7 @@ export default function AdventureMode() {
                 />
 
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
                 {/* Text overlay */}
                 <div className="absolute inset-0 flex items-center">

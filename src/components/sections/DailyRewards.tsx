@@ -2,6 +2,7 @@
 
 import AnimatedSection from "../ui/AnimatedSection";
 import SectionHeading from "../ui/SectionHeading";
+import GameGridBg from "../ui/GameGridBg";
 
 const features = [
   {
@@ -49,6 +50,7 @@ const features = [
 export default function DailyRewards() {
   return (
     <section className="relative py-24 px-4 bg-white overflow-hidden">
+      <GameGridBg variant={3} />
       <div className="absolute -top-16 left-1/3 w-80 h-80 bg-block-blue/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 -right-20 w-72 h-72 bg-coral/5 rounded-full blur-3xl" />
 

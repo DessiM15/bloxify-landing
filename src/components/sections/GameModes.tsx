@@ -5,6 +5,7 @@ import AnimatedSection from "../ui/AnimatedSection";
 import SectionHeading from "../ui/SectionHeading";
 import DeviceMockup from "../ui/DeviceMockup";
 import NavigationDots from "../ui/NavigationDots";
+import GameGridBg from "../ui/GameGridBg";
 import { useCarousel } from "@/hooks/useCarousel";
 
 const modes = [
@@ -51,7 +52,7 @@ export default function GameModes() {
 
   return (
     <section id="modes" className="relative py-24 px-4 bg-white overflow-hidden">
-      {/* Decorative background shapes */}
+      <GameGridBg variant={1} />
       <div className="absolute -top-20 -right-20 w-80 h-80 bg-coral/5 rounded-full blur-3xl" />
       <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-block-blue/5 rounded-full blur-3xl" />
 
@@ -65,16 +66,16 @@ export default function GameModes() {
         </AnimatedSection>
 
         {/* Desktop: Horizontal carousel */}
-        <div
-          className="hidden lg:block"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          <div className="relative">
+        <div className="hidden lg:block">
+          <div
+            className="relative px-14"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             {/* Prev/Next arrows */}
             <button
               onClick={prev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center text-navy/50 hover:text-coral transition-colors cursor-pointer"
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center text-navy/50 hover:text-coral transition-colors cursor-pointer"
               aria-label="Previous mode"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -83,7 +84,7 @@ export default function GameModes() {
             </button>
             <button
               onClick={next}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center text-navy/50 hover:text-coral transition-colors cursor-pointer"
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-navy/5 flex items-center justify-center text-navy/50 hover:text-coral transition-colors cursor-pointer"
               aria-label="Next mode"
             >
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -99,7 +100,7 @@ export default function GameModes() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.35 }}
-                className="flex items-center gap-16"
+                className="flex items-center gap-10 justify-center"
               >
                 {/* Left: description */}
                 <div className="flex-1">

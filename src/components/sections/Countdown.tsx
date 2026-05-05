@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import AnimatedSection from "../ui/AnimatedSection";
 
-const LAUNCH_DATE = new Date("2026-05-05T00:00:00-04:00").getTime();
+const LAUNCH_DATE = new Date("2026-05-05T12:00:00-05:00").getTime();
 
 function getTimeLeft() {
   const now = Date.now();
@@ -36,10 +36,10 @@ export default function Countdown() {
 
   return (
     <section id="countdown" className="relative py-20 sm:py-28 px-4 bg-gradient-to-br from-navy via-navy-light to-navy overflow-hidden">
-      {/* Decorative blobs */}
-      <div className="absolute top-1/4 left-0 w-72 h-72 bg-block-red/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-block-blue/10 rounded-full blur-3xl" />
-      <div className="absolute top-0 right-1/3 w-64 h-64 bg-block-orange/8 rounded-full blur-3xl" />
+      {/* Animated spotlight blobs */}
+      <div className="absolute top-1/4 left-0 w-72 h-72 bg-block-red/10 rounded-full blur-3xl" style={{ animation: "spotlight-1 12s ease-in-out infinite" }} />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-block-blue/10 rounded-full blur-3xl" style={{ animation: "spotlight-2 15s ease-in-out infinite" }} />
+      <div className="absolute top-0 right-1/3 w-64 h-64 bg-block-orange/8 rounded-full blur-3xl" style={{ animation: "spotlight-3 10s ease-in-out infinite" }} />
 
       <div className="max-w-4xl mx-auto relative z-10">
         <AnimatedSection>

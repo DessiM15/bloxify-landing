@@ -2,7 +2,8 @@ import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import Countdown from "@/components/sections/Countdown";
 import GameModes from "@/components/sections/GameModes";
-import WhyBloxify from "@/components/sections/WhyBloxify";
+import MakeItYours from "@/components/sections/MakeItYours";
+import MarqueeBar from "@/components/ui/MarqueeBar";
 import AdventureMode from "@/components/sections/AdventureMode";
 import SeasonOne from "@/components/sections/SeasonOne";
 import DailyRewards from "@/components/sections/DailyRewards";
@@ -19,7 +20,8 @@ export default function Home() {
         <Countdown />
         <GameModes />
         <AdventureMode />
-        <WhyBloxify />
+        <MarqueeBar />
+        <MakeItYours />
         <SeasonOne />
         <DailyRewards />
         <Soundtrack />
