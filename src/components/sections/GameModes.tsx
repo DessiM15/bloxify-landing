@@ -18,6 +18,7 @@ const modes = [
     description:
       "No timer. No pressure. Just you and the board. Place blocks, clear lines, and lose yourself in the flow. Unlock premium backgrounds as you level up.",
     gradient: "from-blue-500/20 to-purple-500/20",
+    screenshot: "/images/screenshots/zen-mode.jpg",
   },
   {
     title: "Blitz Mode",
@@ -29,6 +30,7 @@ const modes = [
     description:
       "Race the clock in 90-second rounds. Chain combos, hit multipliers, and climb the leaderboard. Every session is a fresh shot at your personal best.",
     gradient: "from-orange-500/20 to-red-500/20",
+    screenshot: "/images/screenshots/blitz-mode.jpg",
   },
   {
     title: "Adventure Mode",
@@ -40,6 +42,7 @@ const modes = [
     description:
       "Journey through six handcrafted realms — each with unique block mechanics, boss puzzles, and unlock rewards. 150+ levels of puzzle mastery.",
     gradient: "from-green-500/20 to-teal-500/20",
+    screenshot: "/images/screenshots/adventure-mode.jpg",
   },
 ];
 
@@ -111,7 +114,7 @@ export default function GameModes() {
 
                 {/* Right: Device mockup */}
                 <div className="flex-shrink-0">
-                  <DeviceMockup />
+                  <DeviceMockup screenshot={modes[activeIndex].screenshot} />
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -166,7 +169,7 @@ export default function GameModes() {
                   {modes[activeIndex].description}
                 </p>
                 <div className="flex justify-center">
-                  <DeviceMockup />
+                  <DeviceMockup screenshot={modes[activeIndex].screenshot} />
                 </div>
               </div>
             </motion.div>

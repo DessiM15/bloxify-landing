@@ -22,17 +22,14 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-3">
+        <a href="#" className="flex items-center">
           <Image
-            src="/images/icon.png"
+            src="/images/bloxify-wordmark.png"
             alt="Bloxify"
-            width={40}
+            width={140}
             height={40}
-            className="rounded-xl"
+            className="h-[36px] w-auto"
           />
-          <span className="text-xl font-bold text-cream tracking-tight">
-            Bloxify
-          </span>
         </a>
 
         {/* CTA */}
