@@ -15,6 +15,7 @@ export default function DownloadButtons({ compact = false, variant = "dark" }: D
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
+      window.location.href = `mailto:support@bloxify.app?subject=iOS%20Waitlist%20Signup&body=Please%20add%20me%20to%20the%20iOS%20waitlist.%0A%0AEmail%3A%20${encodeURIComponent(email)}`;
       setSubmitted(true);
       setEmail("");
     }
