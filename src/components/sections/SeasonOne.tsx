@@ -113,7 +113,7 @@ export default function SeasonOne() {
 
           {/* Feature carousel */}
           <AnimatedSection delay={0.2} className="flex-1">
-            <div className="h-[140px] flex items-center">
+            <div className="h-[180px] flex items-center">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={featureIndex}
@@ -123,10 +123,10 @@ export default function SeasonOne() {
                   transition={{ duration: 0.3 }}
                   className="w-full"
                 >
-                  <h4 className="text-lg font-bold text-cream mb-2">
+                  <h4 className="text-2xl sm:text-3xl font-extrabold text-cream mb-3">
                     {seasonFeatures[featureIndex].title}
                   </h4>
-                  <p className="text-cream-dim text-sm leading-relaxed">
+                  <p className="text-cream-dim text-base sm:text-lg leading-relaxed">
                     {seasonFeatures[featureIndex].description}
                   </p>
                 </motion.div>

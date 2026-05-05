@@ -29,7 +29,7 @@ function ShareButtons() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-5">
       <p className="text-cream-dim text-sm font-medium uppercase tracking-widest">Share the Countdown</p>
       <div className="flex flex-wrap justify-center gap-3">
         {/* Facebook */}
@@ -217,12 +217,12 @@ export default function Countdown() {
         <AnimatedSection delay={0.3}>
           <div className="flex flex-col items-center mt-10 gap-6">
             <div className="flex items-center gap-3">
-              <div className="w-20 h-20 relative">
+              <div className="w-28 h-28 relative">
                 <Image
                   src="/images/mascot/blox_celebrating.png"
                   alt="Blox"
-                  width={80}
-                  height={80}
+                  width={112}
+                  height={112}
                   className="drop-shadow-md"
                 />
               </div>

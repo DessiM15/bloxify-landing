@@ -7,20 +7,92 @@ import SectionHeading from "../ui/SectionHeading";
 
 const tracks = [
   {
-    title: "Zen Flow",
+    title: "Dream",
     description: "Ambient puzzle soundtrack for focused play",
-    spotifyUrl: "https://open.spotify.com/search/dubsteck",
+    spotifyUrl: "https://open.spotify.com/track/3C4cOyc2ZCyhhKqoTZBp9B?si=c9db797d67b64191",
+    embedUrl: "https://open.spotify.com/embed/track/3C4cOyc2ZCyhhKqoTZBp9B?utm_source=generator&theme=0",
   },
   {
-    title: "Blitz Rush",
+    title: "My Dear",
     description: "High-energy beats for competitive sessions",
-    spotifyUrl: "https://open.spotify.com/search/dubsteck",
+    spotifyUrl: "https://open.spotify.com/track/10lteau9b0rt14OXHI7Pm2?si=4c248d69abee41b7",
+    embedUrl: "https://open.spotify.com/embed/track/10lteau9b0rt14OXHI7Pm2?utm_source=generator&theme=0",
   },
 ];
+
+function SpotifyModal({
+  track,
+  onClose,
+}: {
+  track: (typeof tracks)[number];
+  onClose: () => void;
+}) {
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center px-4"
+      onClick={onClose}
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+
+      {/* Modal */}
+      <div
+        className="relative w-full max-w-md rounded-2xl bg-navy-light border border-cream/10 overflow-hidden shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-cream/70 hover:text-cream transition-colors cursor-pointer"
+          aria-label="Close"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        {/* Header */}
+        <div className="px-6 pt-6 pb-4">
+          <p className="text-coral font-bold text-xs uppercase tracking-widest mb-1">Now Playing</p>
+          <h3 className="text-xl font-extrabold text-cream">{track.title}</h3>
+          <p className="text-cream-dim text-sm">Dubsteck</p>
+        </div>
+
+        {/* Spotify Embed */}
+        <div className="px-6 pb-4">
+          <iframe
+            src={track.embedUrl}
+            width="100%"
+            height="152"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            className="rounded-xl border-0"
+          />
+        </div>
+
+        {/* Open in Spotify button */}
+        <div className="px-6 pb-6">
+          <a
+            href={track.spotifyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full rounded-full bg-[#1DB954] hover:bg-[#1ed760] text-white font-bold text-sm py-3 transition-colors"
+          >
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+            </svg>
+            Open in Spotify
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Soundtrack() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [activeTrack, setActiveTrack] = useState<(typeof tracks)[number] | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,12 +179,10 @@ export default function Soundtrack() {
               {/* Tracks */}
               <div className="flex-1 w-full space-y-3">
                 {tracks.map((track) => (
-                  <a
+                  <button
                     key={track.title}
-                    href={track.spotifyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="glass rounded-xl p-4 flex items-center gap-3 transition-all hover:border-coral/30 hover:scale-[1.01] block"
+                    onClick={() => setActiveTrack(track)}
+                    className="glass rounded-xl p-4 flex items-center gap-3 transition-all hover:border-coral/30 hover:scale-[1.01] w-full text-left cursor-pointer"
                   >
                     <div className="w-10 h-10 rounded-full bg-coral/20 flex items-center justify-center flex-shrink-0">
                       <svg
@@ -132,13 +202,21 @@ export default function Soundtrack() {
                         <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
                       </svg>
                     </div>
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
           </div>
         </AnimatedSection>
       </div>
+
+      {/* Spotify embed modal */}
+      {activeTrack && (
+        <SpotifyModal
+          track={activeTrack}
+          onClose={() => setActiveTrack(null)}
+        />
+      )}
     </section>
   );
 }
