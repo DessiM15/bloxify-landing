@@ -1,11 +1,8 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Launch: May 6, 2026 17:00 UTC (12:00 CDT)
 const LAUNCH_UTC = new Date("2026-05-06T17:00:00Z");
-const AUDIENCE_ID = process.env.RESEND_AUDIENCE_ID!;
 const FROM = "Bloxify <hello@updates.bloxify.app>";
 
 type EmailTier = {
@@ -96,6 +93,9 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
+  const resend = new Resend(process.env.RESEND_API_KEY);
+  const audienceId = process.env.RESEND_AUDIENCE_ID!;
+
   const now = new Date();
   const tier = getTier(now);
 
@@ -108,7 +108,7 @@ export async function GET(request: Request) {
 
   // Fetch all contacts from the audience
   const { data: contactsData, error: contactsError } =
-    await resend.contacts.list({ audienceId: AUDIENCE_ID });
+    await resend.contacts.list({ audienceId });
 
   if (contactsError || !contactsData?.data?.length) {
     console.error("Failed to fetch contacts:", contactsError);
