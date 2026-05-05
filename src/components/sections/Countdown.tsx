@@ -19,28 +19,36 @@ function getTimeLeft() {
 
 const blockColors = ["bg-block-red", "bg-block-orange", "bg-block-blue", "bg-coral"] as const;
 
-const blobs = [
-  { baseX: 10, baseY: 25, intensity: 1, color: "bg-block-red/15", size: "w-72 h-72" },
-  { baseX: 80, baseY: 75, intensity: 0.7, color: "bg-block-blue/12", size: "w-96 h-96" },
-  { baseX: 55, baseY: 10, intensity: 0.5, color: "bg-block-orange/10", size: "w-64 h-64" },
+const blobConfigs = [
+  { baseX: 10, baseY: 25, intensity: 1, color: "bg-block-red/20", size: "w-80 h-80" },
+  { baseX: 80, baseY: 75, intensity: 0.7, color: "bg-block-blue/15", size: "w-96 h-96" },
+  { baseX: 55, baseY: 10, intensity: 0.5, color: "bg-block-orange/12", size: "w-72 h-72" },
 ];
 
 export default function Countdown() {
   const [time, setTime] = useState(getTimeLeft);
   const sectionRef = useRef<HTMLElement>(null);
-  const [mouse, setMouse] = useState({ x: 50, y: 50 });
+  const blobRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(getTimeLeft()), 1000);
     return () => clearInterval(timer);
   }, []);
 
+  // Direct DOM manipulation for smooth 60fps mouse tracking
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
     const rect = sectionRef.current?.getBoundingClientRect();
     if (!rect) return;
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setMouse({ x, y });
+    const mouseX = ((e.clientX - rect.left) / rect.width) * 100;
+    const mouseY = ((e.clientY - rect.top) / rect.height) * 100;
+
+    blobRefs.current.forEach((el, i) => {
+      if (!el) return;
+      const blob = blobConfigs[i];
+      const offsetX = (mouseX - 50) * 3 * blob.intensity;
+      const offsetY = (mouseY - 50) * 3 * blob.intensity;
+      el.style.transform = `translate(-50%, -50%) translate(${offsetX}px, ${offsetY}px)`;
+    });
   }, []);
 
   const units = [
@@ -58,21 +66,19 @@ export default function Countdown() {
       className="relative py-20 sm:py-28 px-4 bg-gradient-to-br from-navy via-navy-light to-navy overflow-hidden"
     >
       {/* Interactive spotlight blobs — follow mouse on desktop, static on mobile */}
-      {blobs.map((blob, i) => {
-        const offsetX = (mouse.x - 50) * 0.4 * blob.intensity;
-        const offsetY = (mouse.y - 50) * 0.4 * blob.intensity;
-        return (
-          <div
-            key={i}
-            className={`absolute ${blob.color} ${blob.size} rounded-full blur-3xl pointer-events-none transition-transform duration-700 ease-out`}
-            style={{
-              left: `${blob.baseX}%`,
-              top: `${blob.baseY}%`,
-              transform: `translate(-50%, -50%) translate(${offsetX}px, ${offsetY}px)`,
-            }}
-          />
-        );
-      })}
+      {blobConfigs.map((blob, i) => (
+        <div
+          key={i}
+          ref={(el) => { blobRefs.current[i] = el; }}
+          className={`absolute ${blob.color} ${blob.size} rounded-full blur-3xl pointer-events-none`}
+          style={{
+            left: `${blob.baseX}%`,
+            top: `${blob.baseY}%`,
+            transform: "translate(-50%, -50%)",
+            transition: "transform 0.3s ease-out",
+          }}
+        />
+      ))}
 
       <div className="max-w-4xl mx-auto relative z-10">
         <AnimatedSection>
