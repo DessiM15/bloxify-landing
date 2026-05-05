@@ -87,9 +87,9 @@ export default function MakeItYours() {
         </AnimatedSection>
 
         {/* Desktop: side by side | Mobile: single carousel alternating both */}
-        <div className="hidden lg:flex items-center gap-12">
+        <div className="hidden lg:flex items-center gap-16 justify-center">
           {/* Left: Phone mockup with store recording */}
-          <AnimatedSection delay={0.1} className="flex-1 w-full">
+          <AnimatedSection delay={0.1}>
             <PhoneMockup>
               <video
                 src="/videos/theme-store-recording.mp4"
@@ -102,36 +102,30 @@ export default function MakeItYours() {
             </PhoneMockup>
           </AnimatedSection>
 
-          {/* Right: Theme video carousel in phone mockup */}
-          <AnimatedSection delay={0.2} className="flex-1 w-full">
-            <div className="space-y-4">
-              <p className="text-navy/40 text-xs font-semibold uppercase tracking-widest mb-2 text-center">
-                Themes & Backgrounds
-              </p>
-
-              <div className="relative">
-                <PhoneMockup landscape>
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={themeIndex}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.4 }}
-                      className="absolute inset-0"
-                    >
-                      <video
-                        src={themes[themeIndex].video}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="w-full h-full object-cover"
-                      />
-                    </motion.div>
-                  </AnimatePresence>
-                </PhoneMockup>
-              </div>
+          {/* Right: Theme video carousel in phone mockup (vertical) */}
+          <AnimatedSection delay={0.2}>
+            <div className="space-y-5">
+              <PhoneMockup>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={themeIndex}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.4 }}
+                    className="absolute inset-0"
+                  >
+                    <video
+                      src={themes[themeIndex].video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </PhoneMockup>
 
               {/* Theme & Background labels */}
               <AnimatePresence mode="wait">
@@ -174,54 +168,53 @@ export default function MakeItYours() {
   );
 }
 
-/* ─── Android Phone Mockup ─── */
-function PhoneMockup({
-  children,
-  landscape = false,
-}: {
-  children: React.ReactNode;
-  landscape?: boolean;
-}) {
-  const aspectClass = landscape ? "aspect-video" : "aspect-[9/16]";
-  const maxWidthClass = landscape ? "max-w-[400px]" : "max-w-[280px]";
-
+/* ─── Phone Mockup (matches screenshot style) ─── */
+function PhoneMockup({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`relative ${maxWidthClass} mx-auto`}>
-      {/* Outer bezel */}
-      <div className="rounded-[2.5rem] border-[3px] border-gray-800 bg-gray-900 p-[3px] shadow-2xl">
-        {/* Inner frame */}
-        <div className="rounded-[2.2rem] border border-gray-700 overflow-hidden relative">
-          {/* Status bar area */}
-          <div className="absolute top-0 left-0 right-0 z-20 h-6 bg-black/60 backdrop-blur-sm flex items-center justify-between px-5">
-            <span className="text-white/70 text-[9px] font-medium">12:00</span>
-            <div className="flex items-center gap-1">
-              <div className="w-3 h-2 border border-white/70 rounded-sm relative">
-                <div className="absolute inset-0.5 bg-white/70 rounded-[1px]" />
-              </div>
+    <div className="relative max-w-[280px] mx-auto">
+      {/* Outer bezel — thick dark navy frame */}
+      <div
+        className="rounded-[3rem] p-[6px] shadow-[0_25px_60px_rgba(0,0,0,0.35)]"
+        style={{ background: "linear-gradient(145deg, #2a2d3e, #1a1d2e)" }}
+      >
+        {/* Inner bezel ring */}
+        <div
+          className="rounded-[2.6rem] p-[2px]"
+          style={{ background: "linear-gradient(145deg, #3a3d4e, #22253a)" }}
+        >
+          {/* Screen area */}
+          <div className="rounded-[2.4rem] overflow-hidden relative bg-black">
+            {/* Notch */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 w-[120px] h-[28px] bg-black rounded-b-[1rem] flex items-center justify-center gap-2">
+              <div className="w-[10px] h-[10px] rounded-full bg-[#1a1d2e] border border-[#2a2d3e]" />
+              <div className="w-[6px] h-[6px] rounded-full bg-[#1a1d2e]" />
             </div>
-          </div>
 
-          {/* Camera notch */}
-          <div className="absolute top-1.5 left-1/2 -translate-x-1/2 z-20 w-16 h-4 bg-black rounded-full flex items-center justify-center">
-            <div className="w-2 h-2 rounded-full bg-gray-700 border border-gray-600" />
-          </div>
+            {/* Video content */}
+            <div className="aspect-[9/19] w-full bg-black relative overflow-hidden">
+              {children}
+            </div>
 
-          {/* Video content */}
-          <div className={`${aspectClass} w-full bg-black relative overflow-hidden`}>
-            {children}
-          </div>
-
-          {/* Bottom nav bar */}
-          <div className="absolute bottom-0 left-0 right-0 z-20 h-5 bg-black/40 backdrop-blur-sm flex items-center justify-center">
-            <div className="w-24 h-1 bg-white/40 rounded-full" />
+            {/* Bottom home bar */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 w-28 h-1 bg-white/30 rounded-full" />
           </div>
         </div>
       </div>
 
-      {/* Side buttons */}
-      <div className="absolute top-20 -right-[2px] w-[3px] h-8 bg-gray-700 rounded-r-sm" />
-      <div className="absolute top-16 -left-[2px] w-[3px] h-6 bg-gray-700 rounded-l-sm" />
-      <div className="absolute top-24 -left-[2px] w-[3px] h-10 bg-gray-700 rounded-l-sm" />
+      {/* Right side button (power) */}
+      <div
+        className="absolute top-24 -right-[3px] w-[4px] h-12 rounded-r-sm"
+        style={{ background: "linear-gradient(to bottom, #3a3d4e, #2a2d3e)" }}
+      />
+      {/* Left side buttons (volume) */}
+      <div
+        className="absolute top-20 -left-[3px] w-[4px] h-7 rounded-l-sm"
+        style={{ background: "linear-gradient(to bottom, #3a3d4e, #2a2d3e)" }}
+      />
+      <div
+        className="absolute top-30 -left-[3px] w-[4px] h-12 rounded-l-sm"
+        style={{ background: "linear-gradient(to bottom, #3a3d4e, #2a2d3e)" }}
+      />
     </div>
   );
 }
@@ -275,7 +268,7 @@ function MobileCarousel() {
                   <p className="text-navy/40 text-xs font-semibold uppercase tracking-widest">
                     Themes & Backgrounds
                   </p>
-                  <PhoneMockup landscape>
+                  <PhoneMockup>
                     <video
                       src={currentTheme!.video}
                       autoPlay

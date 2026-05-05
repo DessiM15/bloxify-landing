@@ -7,59 +7,65 @@ interface DeviceMockupProps {
 export default function DeviceMockup({ screenshot }: DeviceMockupProps) {
   return (
     <div className="relative mx-auto w-[260px] sm:w-[280px]">
-      {/* Phone frame */}
-      <div className="relative rounded-[2.5rem] border-4 border-cream/20 bg-navy-light p-2 shadow-2xl shadow-coral/10">
-        {/* Notch */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-6 bg-navy-light rounded-b-2xl z-10" />
-
-        {/* Screen */}
-        <div className="relative rounded-[2rem] overflow-hidden bg-navy aspect-[9/19.5]">
-          {screenshot ? (
-            <Image
-              src={screenshot}
-              alt="Bloxify gameplay screenshot"
-              fill
-              className="object-cover"
-            />
-          ) : (
-            /* Placeholder screen content */
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-navy-light to-navy">
-              <Image
-                src="/images/icon.png"
-                alt="Bloxify"
-                width={80}
-                height={80}
-                className="rounded-2xl"
-              />
-              <p className="text-cream/50 text-xs font-medium">
-                Gameplay Preview
-              </p>
-              {/* Mini block grid */}
-              <div className="grid grid-cols-4 gap-1 mt-2">
-                {[
-                  "red", "blue", "orange", "red",
-                  "orange", "red", "blue", "orange",
-                  "blue", "orange", "red", "blue",
-                ].map((color, i) => (
-                  <div
-                    key={i}
-                    className="w-5 h-5 rounded-sm"
-                    style={{
-                      backgroundColor:
-                        color === "red"
-                          ? "#E24B4A"
-                          : color === "orange"
-                            ? "#EF9F27"
-                            : "#378ADD",
-                      opacity: 0.7,
-                    }}
-                  />
-                ))}
-              </div>
+      {/* Outer bezel — thick dark navy frame */}
+      <div
+        className="rounded-[3rem] p-[6px] shadow-[0_25px_60px_rgba(0,0,0,0.35)]"
+        style={{ background: "linear-gradient(145deg, #2a2d3e, #1a1d2e)" }}
+      >
+        {/* Inner bezel ring */}
+        <div
+          className="rounded-[2.6rem] p-[2px]"
+          style={{ background: "linear-gradient(145deg, #3a3d4e, #22253a)" }}
+        >
+          {/* Screen area */}
+          <div className="rounded-[2.4rem] overflow-hidden relative bg-black">
+            {/* Notch */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-20 w-[120px] h-[28px] bg-black rounded-b-[1rem] flex items-center justify-center gap-2">
+              <div className="w-[10px] h-[10px] rounded-full bg-[#1a1d2e] border border-[#2a2d3e]" />
+              <div className="w-[6px] h-[6px] rounded-full bg-[#1a1d2e]" />
             </div>
-          )}
+
+            {/* Content */}
+            <div className="aspect-[9/19] w-full bg-black relative overflow-hidden">
+              {screenshot ? (
+                <Image
+                  src={screenshot}
+                  alt="Bloxify gameplay screenshot"
+                  fill
+                  className="object-cover"
+                />
+              ) : (
+                <video
+                  src="/videos/hero-gameplay.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </div>
+
+            {/* Bottom home bar */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 z-20 w-28 h-1 bg-white/30 rounded-full" />
+          </div>
         </div>
       </div>
+
+      {/* Right side button (power) */}
+      <div
+        className="absolute top-24 -right-[3px] w-[4px] h-12 rounded-r-sm"
+        style={{ background: "linear-gradient(to bottom, #3a3d4e, #2a2d3e)" }}
+      />
+      {/* Left side buttons (volume) */}
+      <div
+        className="absolute top-20 -left-[3px] w-[4px] h-7 rounded-l-sm"
+        style={{ background: "linear-gradient(to bottom, #3a3d4e, #2a2d3e)" }}
+      />
+      <div
+        className="absolute top-30 -left-[3px] w-[4px] h-12 rounded-l-sm"
+        style={{ background: "linear-gradient(to bottom, #3a3d4e, #2a2d3e)" }}
+      />
     </div>
   );
 }
