@@ -12,8 +12,11 @@ const modes = [
   {
     title: "Zen Mode",
     icon: (
-      <svg className="w-7 h-7 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c-4.97 0-9 3.13-9 7 0 2.38 1.56 4.5 4 5.7V21l3-2 3 2v-5.3c2.44-1.2 4-3.32 4-5.7 0-3.87-4.03-7-9-7z" />
+      <svg className="w-7 h-7" viewBox="0 0 64 64">
+        <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" strokeWidth="3" className="text-blue-500"/>
+        <path d="M32 2 A30 30 0 0 1 32 62 A15 15 0 0 1 32 32 A15 15 0 0 0 32 2" className="text-blue-500" fill="currentColor"/>
+        <circle cx="32" cy="17" r="4.5" fill="white"/>
+        <circle cx="32" cy="47" r="4.5" className="text-blue-500" fill="currentColor"/>
       </svg>
     ),
     description:
@@ -29,7 +32,7 @@ const modes = [
       </svg>
     ),
     description:
-      "Race the clock in 90-second rounds. Chain combos, hit multipliers, and climb the leaderboard. Every session is a fresh shot at your personal best.",
+      "Race the clock in 60-second rounds. Chain combos, hit multipliers, and climb the leaderboard. Every session is a fresh shot at your personal best.",
     gradient: "from-orange-500/20 to-red-500/20",
     screenshot: "/images/screenshots/blitz-mode.jpg",
   },
@@ -37,11 +40,11 @@ const modes = [
     title: "Adventure Mode",
     icon: (
       <svg className="w-7 h-7 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503-8.898l.595 2.966a.75.75 0 01-.37.822L12 18.75l-3.728-2.11a.75.75 0 01-.37-.822l.595-2.966-2.28-1.97a.75.75 0 01.418-1.307l3.037-.263 1.178-2.821a.75.75 0 011.3 0l1.178 2.821 3.037.263a.75.75 0 01.418 1.307l-2.28 1.97z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
       </svg>
     ),
     description:
-      "Journey through six handcrafted realms — each with unique block mechanics, boss puzzles, and unlock rewards. 150+ levels of puzzle mastery.",
+      "Journey through six handcrafted realms — each with unique block mechanics, boss puzzles, and unlock rewards. 305+ levels of puzzle mastery.",
     gradient: "from-green-500/20 to-teal-500/20",
     screenshot: "/images/screenshots/adventure-mode.jpg",
   },
@@ -60,7 +63,7 @@ export default function GameModes() {
         <AnimatedSection>
           <SectionHeading
             title={<><span className="text-navy">Three Ways to </span><span className="text-gradient">Play</span></>}
-            subtitle="Whether you have 90 seconds or 90 minutes, there's a mode that fits."
+            subtitle="Whether you have 60 seconds or 60 minutes, there's a mode that fits."
             variant="light"
           />
         </AnimatedSection>

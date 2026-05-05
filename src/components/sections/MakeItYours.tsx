@@ -47,7 +47,7 @@ export default function MakeItYours() {
   useEffect(() => {
     const timer = setInterval(() => {
       setThemeIndex((prev) => (prev + 1) % themes.length);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(timer);
   }, []);
 
@@ -154,7 +154,7 @@ function MobileCarousel({
   useEffect(() => {
     const timer = setInterval(() => {
       setSlideIndex((prev) => (prev + 1) % totalSlides);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(timer);
   }, [totalSlides]);
 

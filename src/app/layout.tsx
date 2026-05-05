@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://bloxify.app"),
   title: "Bloxify — Block Puzzle, Reimagined",
   description:
-    "A premium mobile block puzzle game with adventure mode, daily challenges, and a handcrafted soundtrack. Launching May 5, 2026 on Google Play.",
+    "A premium mobile block puzzle game with adventure mode, daily challenges, and a handcrafted soundtrack. Launching May 6, 2026 on Google Play.",
   keywords: [
     "block puzzle",
     "puzzle game",
@@ -27,21 +27,12 @@ export const metadata: Metadata = {
     url: "https://bloxify.app",
     siteName: "Bloxify",
     type: "website",
-    images: [
-      {
-        url: "/images/icon.png",
-        width: 512,
-        height: 512,
-        alt: "Bloxify App Icon",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Bloxify — Block Puzzle, Reimagined",
     description:
-      "A premium mobile block puzzle game. Launching May 5, 2026 on Google Play.",
-    images: ["/images/icon.png"],
+      "A premium mobile block puzzle game. Launching May 6, 2026 on Google Play.",
   },
   icons: {
     icon: [

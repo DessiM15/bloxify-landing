@@ -1,13 +1,10 @@
+import Image from "next/image";
+
 const footerLinks = [
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
+  { label: "Press Kit", href: "/press" },
   { label: "Support", href: "mailto:support@bloxify.app" },
-];
-
-const socialLinks = [
-  { label: "Twitter", href: "#" },
-  { label: "Instagram", href: "#" },
-  { label: "Discord", href: "#" },
 ];
 
 export default function Footer() {
@@ -17,7 +14,15 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
           {/* Studio */}
           <div className="text-center sm:text-left">
-            <p className="text-cream font-bold text-lg">Bloxify</p>
+            <a href="#" className="inline-block mb-2">
+              <Image
+                src="/images/bloxify-wordmark.png"
+                alt="Bloxify"
+                width={140}
+                height={40}
+                className="h-10 w-auto"
+              />
+            </a>
             <p className="text-cream-dim text-sm mt-1">
               Built by Stead Games Studio
             </p>
@@ -39,19 +44,6 @@ export default function Footer() {
                 key={link.label}
                 href={link.href}
                 className="text-cream-dim hover:text-coral transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          {/* Social */}
-          <div className="flex gap-4">
-            {socialLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-cream-dim hover:text-coral transition-colors text-sm"
               >
                 {link.label}
               </a>

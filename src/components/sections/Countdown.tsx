@@ -2,9 +2,10 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import AnimatedSection from "../ui/AnimatedSection";
 
-const SHARE_TEXT = "Bloxify drops May 5 — count down with us!";
+const SHARE_TEXT = "Bloxify drops May 6 — count down with us!";
 
 function getShareUrl() {
   if (typeof window === "undefined") return "";
@@ -103,7 +104,7 @@ function ShareButtons() {
   );
 }
 
-const LAUNCH_DATE = new Date("2026-05-05T12:00:00-05:00").getTime();
+const LAUNCH_DATE = new Date("2026-05-06T12:00:00-05:00").getTime();
 
 function getTimeLeft() {
   const now = Date.now();
@@ -116,6 +117,105 @@ function getTimeLeft() {
   };
 }
 
+function isLaunched() {
+  return Date.now() >= LAUNCH_DATE;
+}
+
+/* ─── Confetti particle config ─── */
+const CONFETTI_COLORS = ["#FF7F50", "#E24B4A", "#EF9F27", "#378ADD", "#FFE4D6", "#34C759", "#FF6B9D", "#6C5CE7"];
+const confettiParticles = Array.from({ length: 60 }, (_, i) => ({
+  id: i,
+  color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+  left: `${Math.random() * 100}%`,
+  delay: Math.random() * 3,
+  duration: 2.5 + Math.random() * 2,
+  size: 6 + Math.random() * 8,
+  rotation: Math.random() * 360,
+  drift: (Math.random() - 0.5) * 120,
+}));
+
+function CelebrationView() {
+  return (
+    <div className="text-center relative">
+      {/* Confetti */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {confettiParticles.map((p) => (
+          <motion.div
+            key={p.id}
+            className="absolute rounded-sm"
+            style={{
+              left: p.left,
+              top: -20,
+              width: p.size,
+              height: p.size * 0.6,
+              backgroundColor: p.color,
+              rotate: p.rotation,
+            }}
+            animate={{
+              y: [0, 600],
+              x: [0, p.drift],
+              rotate: [p.rotation, p.rotation + 360],
+              opacity: [1, 1, 0],
+            }}
+            transition={{
+              duration: p.duration,
+              delay: p.delay,
+              repeat: Infinity,
+              ease: "easeIn",
+            }}
+          />
+        ))}
+      </div>
+
+      <motion.div
+        initial={{ scale: 0, rotate: -10 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 200, damping: 12 }}
+      >
+        <p className="text-5xl sm:text-6xl mb-4">🎉🎮🎉</p>
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-4">
+          <span className="bg-gradient-to-r from-coral via-block-orange to-block-red bg-clip-text text-transparent">
+            We&apos;re Live!
+          </span>
+        </h2>
+        <p className="text-cream-dim text-lg sm:text-xl mb-8 max-w-md mx-auto">
+          Bloxify is officially available on Google Play. The puzzle adventure starts now!
+        </p>
+      </motion.div>
+
+      <motion.a
+        href="https://play.google.com/store/apps/details?id=com.bloxify.app"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-3 bg-coral hover:bg-coral-dark text-navy font-bold text-lg px-8 py-4 rounded-full transition-colors shadow-lg shadow-coral/25"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+      >
+        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3.18 1.16L13.7 11.7 3.55 22.13c-.47-.36-.55-.98-.55-1.57V2.44c0-.49.06-1 .18-1.28zM14.65 12.65l2.58 2.58-9.87 5.63 7.29-8.21zm3.53-1.9l3.2 1.83c.63.36.63 1.21 0 1.57l-3.54 2.02-2.83-2.83 3.17-2.59zM5.03.26L14.65 5.7l-2.58 2.58L5.03.26z"/>
+        </svg>
+        Download on Google Play
+      </motion.a>
+
+      <div className="flex items-center justify-center gap-3 mt-10">
+        <div className="w-28 h-28 relative">
+          <Image
+            src="/images/mascot/blox_celebrating.png"
+            alt="Blox celebrating"
+            width={112}
+            height={112}
+            className="drop-shadow-md"
+          />
+        </div>
+        <p className="text-cream-dim text-lg sm:text-xl font-medium">
+          Let&apos;s go! 🥳
+        </p>
+      </div>
+    </div>
+  );
+}
+
 const blockColors = ["bg-block-red", "bg-block-orange", "bg-block-blue", "bg-coral"] as const;
 
 const blobConfigs = [
@@ -126,11 +226,16 @@ const blobConfigs = [
 
 export default function Countdown() {
   const [time, setTime] = useState(getTimeLeft);
+  const [launched, setLaunched] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const blobRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const timer = setInterval(() => setTime(getTimeLeft()), 1000);
+    setLaunched(isLaunched());
+    const timer = setInterval(() => {
+      setTime(getTimeLeft());
+      if (isLaunched()) setLaunched(true);
+    }, 1000);
     return () => clearInterval(timer);
   }, []);
 
@@ -180,60 +285,66 @@ export default function Countdown() {
       ))}
 
       <div className="max-w-4xl mx-auto relative z-10">
-        <AnimatedSection>
-          <div className="text-center mb-10">
-            <p className="text-coral font-bold text-sm uppercase tracking-widest mb-3">
-              Launching on Google Play
-            </p>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold">
-              <span className="text-cream">May 5, </span>
-              <span className="bg-gradient-to-r from-coral via-block-orange to-block-red bg-clip-text text-transparent">2026</span>
-            </h2>
-          </div>
-        </AnimatedSection>
-
-        <AnimatedSection delay={0.15}>
-          <div className="flex justify-center gap-3 sm:gap-5">
-            {units.map((unit, i) => (
-              <div key={unit.label} className="text-center">
-                <div
-                  className={`${blockColors[i]} rounded-2xl w-[72px] h-[80px] sm:w-[100px] sm:h-[110px] lg:w-[120px] lg:h-[130px] flex items-center justify-center shadow-lg relative`}
-                  style={{ boxShadow: `0 6px 0 rgba(0,0,0,0.2), 0 8px 20px rgba(0,0,0,0.3)` }}
-                >
-                  {/* Block shine effect */}
-                  <div className="absolute top-0 left-0 right-0 h-1/3 bg-white/15 rounded-t-2xl" />
-                  <span className="text-white text-3xl sm:text-5xl lg:text-6xl font-extrabold relative z-10 tabular-nums">
-                    {String(unit.value).padStart(2, "0")}
-                  </span>
-                </div>
-                <p className="text-cream-dim text-xs sm:text-sm font-semibold mt-3 uppercase tracking-wider">
-                  {unit.label}
+        {launched ? (
+          <CelebrationView />
+        ) : (
+          <>
+            <AnimatedSection>
+              <div className="text-center mb-10">
+                <p className="text-coral font-bold text-sm uppercase tracking-widest mb-3">
+                  Launching on Google Play
                 </p>
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold">
+                  <span className="text-cream">May 6, </span>
+                  <span className="bg-gradient-to-r from-coral via-block-orange to-block-red bg-clip-text text-transparent">2026</span>
+                </h2>
               </div>
-            ))}
-          </div>
-        </AnimatedSection>
+            </AnimatedSection>
 
-        <AnimatedSection delay={0.3}>
-          <div className="flex flex-col items-center mt-10 gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-28 h-28 relative">
-                <Image
-                  src="/images/mascot/blox_celebrating.png"
-                  alt="Blox"
-                  width={112}
-                  height={112}
-                  className="drop-shadow-md"
-                />
+            <AnimatedSection delay={0.15}>
+              <div className="flex justify-center gap-3 sm:gap-5">
+                {units.map((unit, i) => (
+                  <div key={unit.label} className="text-center">
+                    <div
+                      className={`${blockColors[i]} rounded-2xl w-[72px] h-[80px] sm:w-[100px] sm:h-[110px] lg:w-[120px] lg:h-[130px] flex items-center justify-center shadow-lg relative`}
+                      style={{ boxShadow: `0 6px 0 rgba(0,0,0,0.2), 0 8px 20px rgba(0,0,0,0.3)` }}
+                    >
+                      {/* Block shine effect */}
+                      <div className="absolute top-0 left-0 right-0 h-1/3 bg-white/15 rounded-t-2xl" />
+                      <span className="text-white text-3xl sm:text-5xl lg:text-6xl font-extrabold relative z-10 tabular-nums">
+                        {String(unit.value).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <p className="text-cream-dim text-xs sm:text-sm font-semibold mt-3 uppercase tracking-wider">
+                      {unit.label}
+                    </p>
+                  </div>
+                ))}
               </div>
-              <p className="text-cream-dim text-lg sm:text-xl font-medium">
-                Count down with us!
-              </p>
-            </div>
+            </AnimatedSection>
 
-            <ShareButtons />
-          </div>
-        </AnimatedSection>
+            <AnimatedSection delay={0.3}>
+              <div className="flex flex-col items-center mt-10 gap-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-28 h-28 relative">
+                    <Image
+                      src="/images/mascot/blox_celebrating.png"
+                      alt="Blox"
+                      width={112}
+                      height={112}
+                      className="drop-shadow-md"
+                    />
+                  </div>
+                  <p className="text-cream-dim text-lg sm:text-xl font-medium">
+                    Count down with us!
+                  </p>
+                </div>
+
+                <ShareButtons />
+              </div>
+            </AnimatedSection>
+          </>
+        )}
       </div>
     </section>
   );

@@ -21,8 +21,8 @@ const seasonFeatures = [
     description: "Time-limited challenge levels with unique modifiers and leaderboards. Compete for seasonal rankings.",
   },
   {
-    title: "Season Pass — 30 Tiers",
-    description: "Unlock cosmetics, XP boosts, and exclusive rewards as you progress through 30 tiers of the season pass.",
+    title: "Season Pass — 25 Tiers",
+    description: "Unlock cosmetics, XP boosts, and exclusive rewards as you progress through 25 tiers of the season pass.",
   },
   {
     title: "Cherry Blossom Effects",
@@ -104,7 +104,7 @@ export default function SeasonOne() {
                     First Bloom
                   </h3>
                   <p className="text-cream-dim text-sm mt-2">
-                    30 Tiers of Rewards
+                    25 Tiers of Rewards
                   </p>
                 </div>
               </div>
