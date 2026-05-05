@@ -1,21 +1,54 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "../ui/AnimatedSection";
 import SectionHeading from "../ui/SectionHeading";
+import FallingPetals from "../ui/FallingPetals";
 
 const seasonFeatures = [
-  "Exclusive spring-themed backgrounds",
-  "Seasonal block skins and effects",
-  "Limited-time challenge levels",
-  "Season pass with 30 tiers of rewards",
-  "Cherry blossom particle effects",
-  "Bonus XP multipliers all season",
+  {
+    title: "Spring-Themed Backgrounds",
+    description: "Exclusive cherry blossom and garden-inspired board backgrounds that transform your gameplay experience.",
+  },
+  {
+    title: "Seasonal Block Skins",
+    description: "Limited-edition block skins and particle effects — sakura petals trail every clear you make.",
+  },
+  {
+    title: "Challenge Levels",
+    description: "Time-limited challenge levels with unique modifiers and leaderboards. Compete for seasonal rankings.",
+  },
+  {
+    title: "Season Pass — 30 Tiers",
+    description: "Unlock cosmetics, XP boosts, and exclusive rewards as you progress through 30 tiers of the season pass.",
+  },
+  {
+    title: "Cherry Blossom Effects",
+    description: "Beautiful particle effects cascade across your screen with every combo and line clear.",
+  },
+  {
+    title: "Bonus XP All Season",
+    description: "Earn boosted XP multipliers throughout the entire season to level up faster.",
+  },
 ];
 
 export default function SeasonOne() {
+  const [featureIndex, setFeatureIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFeatureIndex((prev) => (prev + 1) % seasonFeatures.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="relative py-24 px-4 bg-navy-light/50 overflow-hidden">
+      {/* Falling petals */}
+      <FallingPetals />
+
       {/* Spring corner decorations */}
       <div className="absolute top-0 left-0 w-32 h-32 sm:w-48 sm:h-48 opacity-30">
         <Image
@@ -25,7 +58,10 @@ export default function SeasonOne() {
           className="object-contain"
         />
       </div>
-      <div className="absolute bottom-0 right-0 w-32 h-32 sm:w-48 sm:h-48 opacity-30 rotate-180">
+      <div
+        className="absolute bottom-0 right-0 w-32 h-32 sm:w-48 sm:h-48 opacity-30"
+        style={{ transform: "scaleX(-1) scaleY(-1)" }}
+      >
         <Image
           src="/images/spring/bigcorner.png"
           alt=""
@@ -70,18 +106,43 @@ export default function SeasonOne() {
             </div>
           </AnimatedSection>
 
-          {/* Features list */}
+          {/* Feature carousel */}
           <AnimatedSection delay={0.2} className="flex-1">
-            <ul className="space-y-4">
-              {seasonFeatures.map((feature, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <span className="mt-0.5 w-6 h-6 rounded-full bg-coral/20 flex items-center justify-center flex-shrink-0">
-                    <span className="w-2 h-2 rounded-full bg-coral" />
-                  </span>
-                  <span className="text-cream-dim">{feature}</span>
-                </li>
+            <div className="h-[140px] flex items-center">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={featureIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-full"
+                >
+                  <h4 className="text-lg font-bold text-cream mb-2">
+                    {seasonFeatures[featureIndex].title}
+                  </h4>
+                  <p className="text-cream-dim text-sm leading-relaxed">
+                    {seasonFeatures[featureIndex].description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            {/* Navigation dots */}
+            <div className="flex gap-2 mt-4">
+              {seasonFeatures.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setFeatureIndex(i)}
+                  className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                    i === featureIndex
+                      ? "bg-coral w-6"
+                      : "bg-cream/30 hover:bg-cream/50 w-2"
+                  }`}
+                  aria-label={`Feature ${i + 1}`}
+                />
               ))}
-            </ul>
+            </div>
           </AnimatedSection>
         </div>
       </div>

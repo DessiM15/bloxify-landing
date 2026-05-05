@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import FloatingBlock from "../ui/FloatingBlock";
+import FallingBlocks from "../ui/FallingBlocks";
 import DownloadButtons from "../ui/DownloadButtons";
 import DeviceMockup from "../ui/DeviceMockup";
 
@@ -12,13 +12,8 @@ export default function Hero() {
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-b from-navy via-navy to-navy-light" />
 
-      {/* Floating blocks */}
-      <FloatingBlock color="red" size={35} className="top-[15%] left-[8%]" animation="float" />
-      <FloatingBlock color="blue" size={28} className="top-[25%] right-[12%]" animation="float-slow" />
-      <FloatingBlock color="orange" size={42} className="bottom-[30%] left-[5%]" animation="float-delayed" />
-      <FloatingBlock color="red" size={24} className="bottom-[20%] right-[8%]" animation="float" />
-      <FloatingBlock color="blue" size={32} className="top-[60%] right-[20%]" animation="float-slow" />
-      <FloatingBlock color="orange" size={20} className="top-[40%] left-[15%]" animation="float-delayed" />
+      {/* Falling blocks animation */}
+      <FallingBlocks />
 
       <div className="relative z-10 max-w-7xl mx-auto w-full">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">

@@ -17,10 +17,10 @@ const features = [
       "Zero interstitials. Zero pop-ups. Optional rewarded ads only — watch one if you want a bonus, or ignore them entirely.",
   },
   {
-    title: "Premium Polish",
-    icon: "✨",
+    title: "We Support Artists",
+    icon: "🎶",
     description:
-      "Buttery 60fps animations, satisfying haptics, and a handcrafted soundtrack by Dubsteck. Every detail has been obsessed over.",
+      "Every in-game track is made by independent musicians. We give creators a platform and players a soundtrack worth listening to.",
   },
   {
     title: "Offline Play",

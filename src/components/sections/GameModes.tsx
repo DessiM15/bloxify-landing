@@ -1,7 +1,11 @@
 "use client";
 
+import { motion, AnimatePresence } from "framer-motion";
 import AnimatedSection from "../ui/AnimatedSection";
 import SectionHeading from "../ui/SectionHeading";
+import DeviceMockup from "../ui/DeviceMockup";
+import NavigationDots from "../ui/NavigationDots";
+import { useCarousel } from "@/hooks/useCarousel";
 
 const modes = [
   {
@@ -10,6 +14,7 @@ const modes = [
     description:
       "No timer. No pressure. Just you and the board. Place blocks, clear lines, and lose yourself in the flow. Unlock premium backgrounds as you level up.",
     gradient: "from-blue-500/20 to-purple-500/20",
+    color: "blue",
   },
   {
     title: "Blitz Mode",
@@ -17,6 +22,7 @@ const modes = [
     description:
       "Race the clock in 90-second rounds. Chain combos, hit multipliers, and climb the leaderboard. Every session is a fresh shot at your personal best.",
     gradient: "from-orange-500/20 to-red-500/20",
+    color: "orange",
   },
   {
     title: "Adventure Mode",
@@ -24,10 +30,13 @@ const modes = [
     description:
       "Journey through six handcrafted realms — each with unique block mechanics, boss puzzles, and unlock rewards. 150+ levels of puzzle mastery.",
     gradient: "from-green-500/20 to-teal-500/20",
+    color: "green",
   },
 ];
 
 export default function GameModes() {
+  const { activeIndex, setActiveIndex, setIsPaused, next, prev } = useCarousel(modes.length, 4000);
+
   return (
     <section id="modes" className="relative py-24 px-4">
       <div className="max-w-7xl mx-auto">
@@ -38,24 +47,122 @@ export default function GameModes() {
           />
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {modes.map((mode, i) => (
-            <AnimatedSection key={mode.title} delay={i * 0.15}>
-              <div className="glass rounded-2xl p-8 h-full transition-transform hover:scale-[1.02] hover:border-coral/20">
-                <div
-                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${mode.gradient} flex items-center justify-center text-2xl mb-6`}
+        {/* Desktop: Horizontal carousel */}
+        <div
+          className="hidden lg:block"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
+          <div className="relative">
+            {/* Prev/Next arrows */}
+            <button
+              onClick={prev}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-20 w-10 h-10 rounded-full glass flex items-center justify-center text-cream hover:text-coral transition-colors cursor-pointer"
+              aria-label="Previous mode"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M12 15L7 10L12 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            <button
+              onClick={next}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-20 w-10 h-10 rounded-full glass flex items-center justify-center text-cream hover:text-coral transition-colors cursor-pointer"
+              aria-label="Next mode"
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M8 5L13 10L8 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+
+            {/* Slide content */}
+            <div className="overflow-hidden rounded-2xl glass p-8 lg:p-12">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.35 }}
+                  className="flex items-center gap-12"
                 >
-                  {mode.emoji}
+                  {/* Left: description */}
+                  <div className="flex-1">
+                    <div
+                      className={`w-16 h-16 rounded-xl bg-gradient-to-br ${modes[activeIndex].gradient} flex items-center justify-center text-3xl mb-6`}
+                    >
+                      {modes[activeIndex].emoji}
+                    </div>
+                    <h3 className="text-2xl font-bold text-cream mb-4">
+                      {modes[activeIndex].title}
+                    </h3>
+                    <p className="text-cream-dim leading-relaxed">
+                      {modes[activeIndex].description}
+                    </p>
+                  </div>
+
+                  {/* Right: Device mockup */}
+                  <div className="flex-shrink-0">
+                    <DeviceMockup />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+
+            <NavigationDots
+              count={modes.length}
+              active={activeIndex}
+              onSelect={setActiveIndex}
+            />
+          </div>
+        </div>
+
+        {/* Mobile: Tab pills */}
+        <div className="lg:hidden">
+          {/* Mode pills */}
+          <div className="flex gap-2 mb-8 overflow-x-auto hide-scrollbar pb-2">
+            {modes.map((mode, i) => (
+              <button
+                key={mode.title}
+                onClick={() => setActiveIndex(i)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap transition-all duration-300 cursor-pointer ${
+                  i === activeIndex
+                    ? "bg-coral text-navy"
+                    : "glass text-cream-dim hover:text-cream"
+                }`}
+              >
+                <span>{mode.emoji}</span>
+                <span>{mode.title}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Content */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeIndex}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.25 }}
+            >
+              <div className="glass rounded-2xl p-6">
+                <div
+                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${modes[activeIndex].gradient} flex items-center justify-center text-2xl mb-4`}
+                >
+                  {modes[activeIndex].emoji}
                 </div>
                 <h3 className="text-xl font-bold text-cream mb-3">
-                  {mode.title}
+                  {modes[activeIndex].title}
                 </h3>
-                <p className="text-cream-dim text-sm leading-relaxed">
-                  {mode.description}
+                <p className="text-cream-dim text-sm leading-relaxed mb-6">
+                  {modes[activeIndex].description}
                 </p>
+                <div className="flex justify-center">
+                  <DeviceMockup />
+                </div>
               </div>
-            </AnimatedSection>
-          ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>

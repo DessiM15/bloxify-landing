@@ -64,6 +64,33 @@ html {
   50% { opacity: 0.8; }
 }
 
+@keyframes drift-petal {
+  0% {
+    transform: translateY(0) rotate(0deg) translateX(0);
+  }
+  25% {
+    transform: translateY(25vh) rotate(90deg) translateX(30px);
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg) translateX(-20px);
+  }
+  75% {
+    transform: translateY(75vh) rotate(270deg) translateX(25px);
+  }
+  100% {
+    transform: translateY(calc(100vh + 30px)) rotate(360deg) translateX(-10px);
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg) translateX(0);
+  }
+  100% {
+    transform: translateY(calc(100vh + 120px)) rotate(45deg) translateX(20px);
+  }
+}
+
 /* Glass morphism utility */
 .glass {
   background: rgba(26, 31, 53, 0.6);

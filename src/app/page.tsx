@@ -16,8 +16,8 @@ export default function Home() {
       <main>
         <Hero />
         <GameModes />
-        <WhyBloxify />
         <AdventureMode />
+        <WhyBloxify />
         <SeasonOne />
         <DailyRewards />
         <Soundtrack />
