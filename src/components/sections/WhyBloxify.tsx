@@ -48,24 +48,25 @@ const features = [
 
 export default function WhyBloxify() {
   return (
-    <section className="relative py-24 px-4 bg-navy-light/50">
+    <section className="relative py-24 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         <AnimatedSection>
           <SectionHeading
             title="Why Bloxify?"
             subtitle="We built the block puzzle game we always wanted to play."
+            variant="light"
           />
         </AnimatedSection>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, i) => (
             <AnimatedSection key={feature.title} delay={i * 0.1}>
-              <div className="glass rounded-2xl p-6 h-full text-center">
+              <div className="rounded-2xl p-6 h-full text-center border border-navy/8 bg-gray-50/50">
                 <div className="mb-4 flex justify-center">{feature.icon}</div>
-                <h3 className="text-lg font-bold text-cream mb-2">
+                <h3 className="text-lg font-bold text-navy mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-cream-dim text-sm leading-relaxed">
+                <p className="text-navy/55 text-sm leading-relaxed">
                   {feature.description}
                 </p>
               </div>

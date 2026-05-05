@@ -81,26 +81,25 @@ export default function SeasonOne() {
         <div className="flex flex-col lg:flex-row items-center gap-12">
           {/* Season visual */}
           <AnimatedSection delay={0.1} className="flex-1">
-            <div className="glass rounded-2xl p-8 text-center">
-              <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-green-900/40 to-pink-900/40">
-                <Image
-                  src="/images/backgrounds/season_pass_bg_option1.png"
-                  alt="Season One: First Bloom"
-                  fill
-                  className="object-cover opacity-80"
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <p className="text-coral font-bold text-sm uppercase tracking-widest mb-2">
-                      Season 1
-                    </p>
-                    <h3 className="text-3xl font-extrabold text-cream">
-                      First Bloom
-                    </h3>
-                    <p className="text-cream-dim text-sm mt-2">
-                      30 Tiers of Rewards
-                    </p>
-                  </div>
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden">
+              <Image
+                src="/images/backgrounds/season_pass_bg_option1.png"
+                alt="Season One: First Bloom"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-navy/30" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <p className="text-coral font-bold text-sm uppercase tracking-widest mb-2">
+                    Season 1
+                  </p>
+                  <h3 className="text-3xl font-extrabold text-cream">
+                    First Bloom
+                  </h3>
+                  <p className="text-cream-dim text-sm mt-2">
+                    30 Tiers of Rewards
+                  </p>
                 </div>
               </div>
             </div>
