@@ -10,27 +10,36 @@ import { useCarousel } from "@/hooks/useCarousel";
 const modes = [
   {
     title: "Zen Mode",
-    emoji: "🧘",
+    icon: (
+      <svg className="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c-4.97 0-9 3.13-9 7 0 2.38 1.56 4.5 4 5.7V21l3-2 3 2v-5.3c2.44-1.2 4-3.32 4-5.7 0-3.87-4.03-7-9-7z" />
+      </svg>
+    ),
     description:
       "No timer. No pressure. Just you and the board. Place blocks, clear lines, and lose yourself in the flow. Unlock premium backgrounds as you level up.",
     gradient: "from-blue-500/20 to-purple-500/20",
-    color: "blue",
   },
   {
     title: "Blitz Mode",
-    emoji: "⚡",
+    icon: (
+      <svg className="w-7 h-7 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+      </svg>
+    ),
     description:
       "Race the clock in 90-second rounds. Chain combos, hit multipliers, and climb the leaderboard. Every session is a fresh shot at your personal best.",
     gradient: "from-orange-500/20 to-red-500/20",
-    color: "orange",
   },
   {
     title: "Adventure Mode",
-    emoji: "🗺️",
+    icon: (
+      <svg className="w-7 h-7 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503-8.898l.595 2.966a.75.75 0 01-.37.822L12 18.75l-3.728-2.11a.75.75 0 01-.37-.822l.595-2.966-2.28-1.97a.75.75 0 01.418-1.307l3.037-.263 1.178-2.821a.75.75 0 011.3 0l1.178 2.821 3.037.263a.75.75 0 01.418 1.307l-2.28 1.97z" />
+      </svg>
+    ),
     description:
       "Journey through six handcrafted realms — each with unique block mechanics, boss puzzles, and unlock rewards. 150+ levels of puzzle mastery.",
     gradient: "from-green-500/20 to-teal-500/20",
-    color: "green",
   },
 ];
 
@@ -88,9 +97,9 @@ export default function GameModes() {
                   {/* Left: description */}
                   <div className="flex-1">
                     <div
-                      className={`w-16 h-16 rounded-xl bg-gradient-to-br ${modes[activeIndex].gradient} flex items-center justify-center text-3xl mb-6`}
+                      className={`w-16 h-16 rounded-xl bg-gradient-to-br ${modes[activeIndex].gradient} flex items-center justify-center mb-6`}
                     >
-                      {modes[activeIndex].emoji}
+                      {modes[activeIndex].icon}
                     </div>
                     <h3 className="text-2xl font-bold text-cream mb-4">
                       {modes[activeIndex].title}
@@ -130,7 +139,6 @@ export default function GameModes() {
                     : "glass text-cream-dim hover:text-cream"
                 }`}
               >
-                <span>{mode.emoji}</span>
                 <span>{mode.title}</span>
               </button>
             ))}
@@ -147,9 +155,9 @@ export default function GameModes() {
             >
               <div className="glass rounded-2xl p-6">
                 <div
-                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${modes[activeIndex].gradient} flex items-center justify-center text-2xl mb-4`}
+                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${modes[activeIndex].gradient} flex items-center justify-center mb-4`}
                 >
-                  {modes[activeIndex].emoji}
+                  {modes[activeIndex].icon}
                 </div>
                 <h3 className="text-xl font-bold text-cream mb-3">
                   {modes[activeIndex].title}

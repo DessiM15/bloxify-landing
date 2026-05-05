@@ -43,8 +43,7 @@ export default function Soundtrack() {
 
         {/* Artist submission CTA */}
         <AnimatedSection delay={0.1}>
-          <div className="glass-strong rounded-2xl p-8 sm:p-10 text-center max-w-2xl mx-auto mb-16">
-            <div className="text-3xl mb-3">🎵</div>
+          <div className="text-center max-w-2xl mx-auto mb-16">
             <h3 className="text-xl font-bold text-cream mb-2">
               Are you an up-and-coming artist?
             </h3>
@@ -64,7 +63,7 @@ export default function Soundtrack() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="flex-1 min-w-0 rounded-lg bg-navy border border-cream/10 px-4 py-3 text-base text-cream placeholder:text-cream/40 focus:outline-none focus:border-coral/50 transition-colors"
+                  className="flex-1 min-w-0 rounded-lg bg-navy-light border border-cream/10 px-4 py-3 text-base text-cream placeholder:text-cream/40 focus:outline-none focus:border-coral/50 transition-colors"
                 />
                 <a
                   href="mailto:support@bloxify.app?subject=Artist%20Music%20Submission"
