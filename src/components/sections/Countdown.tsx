@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import AnimatedSection from "../ui/AnimatedSection";
+import WaitlistForm from "../ui/WaitlistForm";
 
 const SHARE_TEXT = "Bloxify drops May 6 — count down with us!";
 
@@ -323,7 +324,21 @@ export default function Countdown() {
               </div>
             </AnimatedSection>
 
-            <AnimatedSection delay={0.3}>
+            <AnimatedSection delay={0.25}>
+              <div className="flex flex-col items-center mt-10 max-w-md mx-auto">
+                <p className="text-cream text-lg sm:text-xl font-bold mb-3 text-center">
+                  Get notified when we launch
+                </p>
+                <WaitlistForm
+                  variant="glass"
+                  placeholder="Enter your email"
+                  buttonText="Notify Me"
+                  successMessage="You're on the list! We'll email you on launch day."
+                />
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection delay={0.4}>
               <div className="flex flex-col items-center mt-10 gap-6">
                 <div className="flex items-center gap-3">
                   <div className="w-28 h-28 relative">
