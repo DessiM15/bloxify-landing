@@ -83,39 +83,37 @@ export default function GameModes() {
               </svg>
             </button>
 
-            {/* Slide content */}
-            <div className="overflow-hidden rounded-2xl glass p-8 lg:p-12">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeIndex}
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  transition={{ duration: 0.35 }}
-                  className="flex items-center gap-12"
-                >
-                  {/* Left: description */}
-                  <div className="flex-1">
-                    <div
-                      className={`w-16 h-16 rounded-xl bg-gradient-to-br ${modes[activeIndex].gradient} flex items-center justify-center mb-6`}
-                    >
-                      {modes[activeIndex].icon}
-                    </div>
-                    <h3 className="text-2xl font-bold text-cream mb-4">
-                      {modes[activeIndex].title}
-                    </h3>
-                    <p className="text-cream-dim leading-relaxed">
-                      {modes[activeIndex].description}
-                    </p>
+            {/* Slide content — open split layout */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.35 }}
+                className="flex items-center gap-16"
+              >
+                {/* Left: description */}
+                <div className="flex-1">
+                  <div
+                    className={`w-14 h-14 rounded-xl bg-gradient-to-br ${modes[activeIndex].gradient} flex items-center justify-center mb-6`}
+                  >
+                    {modes[activeIndex].icon}
                   </div>
+                  <h3 className="text-3xl font-bold text-cream mb-4">
+                    {modes[activeIndex].title}
+                  </h3>
+                  <p className="text-cream-dim text-lg leading-relaxed max-w-lg">
+                    {modes[activeIndex].description}
+                  </p>
+                </div>
 
-                  {/* Right: Device mockup */}
-                  <div className="flex-shrink-0">
-                    <DeviceMockup />
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
+                {/* Right: Device mockup */}
+                <div className="flex-shrink-0">
+                  <DeviceMockup />
+                </div>
+              </motion.div>
+            </AnimatePresence>
 
             <NavigationDots
               count={modes.length}
@@ -153,9 +151,9 @@ export default function GameModes() {
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.25 }}
             >
-              <div className="glass rounded-2xl p-6">
+              <div>
                 <div
-                  className={`w-14 h-14 rounded-xl bg-gradient-to-br ${modes[activeIndex].gradient} flex items-center justify-center mb-4`}
+                  className={`w-12 h-12 rounded-xl bg-gradient-to-br ${modes[activeIndex].gradient} flex items-center justify-center mb-4`}
                 >
                   {modes[activeIndex].icon}
                 </div>
