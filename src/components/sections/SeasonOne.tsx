@@ -50,7 +50,10 @@ export default function SeasonOne() {
       <FallingPetals />
 
       {/* Spring corner decorations */}
-      <div className="absolute top-0 left-0 w-32 h-32 sm:w-48 sm:h-48 opacity-30">
+      <div
+        className="absolute top-0 left-0 w-32 h-32 sm:w-48 sm:h-48 opacity-30"
+        style={{ transform: "rotate(270deg)", transformOrigin: "top left" }}
+      >
         <Image
           src="/images/spring/bigcorner.png"
           alt=""
@@ -60,7 +63,7 @@ export default function SeasonOne() {
       </div>
       <div
         className="absolute bottom-0 right-0 w-32 h-32 sm:w-48 sm:h-48 opacity-30"
-        style={{ transform: "scaleX(-1) scaleY(-1)" }}
+        style={{ transform: "rotate(270deg)", transformOrigin: "bottom right" }}
       >
         <Image
           src="/images/spring/bigcorner.png"
@@ -82,12 +85,15 @@ export default function SeasonOne() {
           {/* Season visual */}
           <AnimatedSection delay={0.1} className="flex-1">
             <div className="relative w-full aspect-video rounded-2xl overflow-hidden">
-              <Image
-                src="/images/backgrounds/season_pass_bg_option1.png"
-                alt="Season One: First Bloom"
-                fill
-                className="object-cover"
-              />
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src="/images/backgrounds/season_pass_bg_video_spring.mp4" type="video/mp4" />
+              </video>
               <div className="absolute inset-0 bg-navy/30" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">

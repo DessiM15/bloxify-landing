@@ -23,7 +23,7 @@ const features = [
       </svg>
     ),
     description:
-      "Three fresh puzzles every 24 hours. Complete them all for bonus XP and climb the daily leaderboard.",
+      "3 fresh challenges every 24 hours. Complete them all for bonus XP and climb the daily leaderboard.",
   },
   {
     title: "Leaderboards",
@@ -33,7 +33,7 @@ const features = [
       </svg>
     ),
     description:
-      "Compete globally or with friends. Weekly, monthly, and all-time rankings across all game modes.",
+      "Get ranked globally or with friends. Weekly leaderboards keep the competition fresh across all game modes.",
   },
   {
     title: "Friends & Referrals",

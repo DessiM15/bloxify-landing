@@ -60,8 +60,8 @@ const realms = [
 
 const stats = [
   { label: "Realms", value: "6" },
-  { label: "Levels", value: "150+" },
-  { label: "Boss Puzzles", value: "18" },
+  { label: "Levels", value: "350+" },
+  { label: "Boss Puzzles", value: "72" },
   { label: "Unlockables", value: "50+" },
 ];
 

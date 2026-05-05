@@ -39,9 +39,9 @@ const grids: Record<number, number[][]> = {
 };
 
 const colors: Record<number, string> = {
-  1: "rgba(226, 75, 74, 0.07)",   // block-red
-  2: "rgba(239, 159, 39, 0.07)",  // block-orange
-  3: "rgba(55, 138, 221, 0.07)",  // block-blue
+  1: "rgba(226, 75, 74, 0.18)",   // block-red - more visible
+  2: "rgba(239, 159, 39, 0.18)",  // block-orange - more visible
+  3: "rgba(55, 138, 221, 0.18)",  // block-blue - more visible
 };
 
 export default function GameGridBg({ variant = 1 }: GameGridBgProps) {
@@ -51,19 +51,21 @@ export default function GameGridBg({ variant = 1 }: GameGridBgProps) {
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Top-right grid, slightly rotated */}
+      {/* Top-right grid, floating and pulsing */}
       <svg
-        className="absolute -top-8 -right-8 opacity-60"
+        className="absolute -top-8 -right-8"
         width={gridSize}
         height={gridSize}
         viewBox={`0 0 ${gridSize} ${gridSize}`}
-        style={{ transform: "rotate(6deg)" }}
+        style={{
+          animation: "gridFloat 8s ease-in-out infinite, gridPulse 3s ease-in-out infinite",
+        }}
       >
         {/* Grid lines */}
         {Array.from({ length: 9 }, (_, i) => (
           <g key={`lines-${i}`}>
-            <line x1={i * cellSize} y1={0} x2={i * cellSize} y2={gridSize} stroke="rgba(15, 18, 32, 0.04)" strokeWidth="1" />
-            <line x1={0} y1={i * cellSize} x2={gridSize} y2={i * cellSize} stroke="rgba(15, 18, 32, 0.04)" strokeWidth="1" />
+            <line x1={i * cellSize} y1={0} x2={i * cellSize} y2={gridSize} stroke="rgba(15, 18, 32, 0.08)" strokeWidth="1" />
+            <line x1={0} y1={i * cellSize} x2={gridSize} y2={i * cellSize} stroke="rgba(15, 18, 32, 0.08)" strokeWidth="1" />
           </g>
         ))}
         {/* Filled cells */}
@@ -84,18 +86,20 @@ export default function GameGridBg({ variant = 1 }: GameGridBgProps) {
         )}
       </svg>
 
-      {/* Bottom-left grid, different rotation */}
+      {/* Bottom-left grid, floating (offset timing) and pulsing */}
       <svg
-        className="absolute -bottom-12 -left-12 opacity-40"
+        className="absolute -bottom-12 -left-12"
         width={gridSize}
         height={gridSize}
         viewBox={`0 0 ${gridSize} ${gridSize}`}
-        style={{ transform: "rotate(-8deg)" }}
+        style={{
+          animation: "gridFloat2 10s ease-in-out infinite, gridPulse 4s ease-in-out 1.5s infinite",
+        }}
       >
         {Array.from({ length: 9 }, (_, i) => (
           <g key={`lines2-${i}`}>
-            <line x1={i * cellSize} y1={0} x2={i * cellSize} y2={gridSize} stroke="rgba(15, 18, 32, 0.03)" strokeWidth="1" />
-            <line x1={0} y1={i * cellSize} x2={gridSize} y2={i * cellSize} stroke="rgba(15, 18, 32, 0.03)" strokeWidth="1" />
+            <line x1={i * cellSize} y1={0} x2={i * cellSize} y2={gridSize} stroke="rgba(15, 18, 32, 0.06)" strokeWidth="1" />
+            <line x1={0} y1={i * cellSize} x2={gridSize} y2={i * cellSize} stroke="rgba(15, 18, 32, 0.06)" strokeWidth="1" />
           </g>
         ))}
         {grids[variant === 1 ? 2 : 1].map((row, y) =>

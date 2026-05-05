@@ -26,9 +26,9 @@ export default function Navbar() {
           <Image
             src="/images/bloxify-wordmark.png"
             alt="Bloxify"
-            width={140}
-            height={40}
-            className="h-[36px] w-auto"
+            width={200}
+            height={56}
+            className="h-[52px] w-auto"
           />
         </a>
 
@@ -37,7 +37,7 @@ export default function Navbar() {
           href="https://play.google.com/store/apps/details?id=com.bloxify.app"
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-full bg-coral px-5 py-2.5 text-sm font-semibold text-navy transition-colors hover:bg-coral-dark"
+          className="rounded-full bg-coral px-7 py-3.5 text-base font-bold text-navy transition-colors hover:bg-coral-dark"
         >
           Download
         </a>

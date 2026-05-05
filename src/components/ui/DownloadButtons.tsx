@@ -42,7 +42,7 @@ export default function DownloadButtons({ compact = false, variant = "dark" }: D
 
       {/* iOS Waitlist */}
       <div className={compact ? "" : "w-full max-w-md"}>
-        <p className={`text-sm font-medium mb-2 text-center lg:text-left ${isCoral ? "text-white/70" : "text-cream-dim"}`}>
+        <p className={`text-lg sm:text-xl font-bold mb-3 text-center lg:text-left ${isCoral ? "text-white/70" : "text-cream-dim"}`}>
           Coming soon to iOS
         </p>
         <div className={`rounded-xl p-3 ${isCoral ? "bg-white/15 border border-white/20" : "glass border border-coral/20"}`}>

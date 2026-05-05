@@ -52,12 +52,12 @@ export default function Hero() {
             <DeviceMockup />
 
             {/* Mascot */}
-            <div className="absolute -bottom-4 -right-8 sm:-right-12 w-28 sm:w-36">
+            <div className="absolute -bottom-4 -right-10 sm:-right-16 w-36 sm:w-48">
               <Image
                 src="/images/mascot/blox_waving.png"
                 alt="Blox mascot waving"
-                width={150}
-                height={200}
+                width={200}
+                height={267}
                 className="drop-shadow-lg"
               />
             </div>

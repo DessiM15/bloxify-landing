@@ -23,7 +23,7 @@ function randomBetween(min: number, max: number) {
 const coins = Array.from({ length: 8 }, (_, i) => ({
   id: i,
   color: coinColors[i % 4],
-  size: Math.round(randomBetween(12, 22)),
+  size: Math.round(randomBetween(24, 40)),
   left: `${randomBetween(0, 95)}%`,
   duration: `${randomBetween(10, 18)}s`,
   delay: `${randomBetween(0, 10)}s`,

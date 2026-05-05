@@ -11,14 +11,14 @@ export default function MarqueeBar() {
   const repeated = [...items, ...items, ...items, ...items];
 
   return (
-    <div className="bg-gradient-to-r from-coral via-block-orange to-block-red py-3 overflow-hidden">
+    <div className="bg-gradient-to-r from-coral via-block-orange to-block-red py-4 overflow-hidden">
       <div
         className="flex whitespace-nowrap"
         style={{ animation: "marquee 20s linear infinite" }}
       >
         {repeated.map((item, i) => (
-          <span key={i} className="flex items-center gap-3 mx-6 text-white font-semibold text-sm tracking-wide">
-            <span className="w-1.5 h-1.5 rounded-full bg-white/60 flex-shrink-0" />
+          <span key={i} className="flex items-center gap-4 mx-8 text-white font-bold text-lg sm:text-xl tracking-wide">
+            <span className="w-2 h-2 rounded-full bg-white/60 flex-shrink-0" />
             {item}
           </span>
         ))}

@@ -15,12 +15,12 @@ export default function DownloadCTA() {
         <AnimatedSection>
           <div className="text-center">
             {/* Mascot */}
-            <div className="w-24 h-24 mx-auto mb-6 relative">
+            <div className="w-32 h-32 mx-auto mb-6 relative">
               <Image
                 src="/images/mascot/blox_celebrating.png"
                 alt="Blox celebrating"
-                width={96}
-                height={96}
+                width={128}
+                height={128}
                 className="drop-shadow-lg"
               />
             </div>

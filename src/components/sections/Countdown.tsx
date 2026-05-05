@@ -4,6 +4,105 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import AnimatedSection from "../ui/AnimatedSection";
 
+const SHARE_TEXT = "Bloxify drops May 5 — count down with us!";
+
+function getShareUrl() {
+  if (typeof window === "undefined") return "";
+  return window.location.origin + "/#countdown";
+}
+
+function ShareButtons() {
+  const [copied, setCopied] = useState(false);
+
+  const shareUrl = getShareUrl();
+  const encodedText = encodeURIComponent(SHARE_TEXT);
+  const encodedUrl = encodeURIComponent(shareUrl);
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(`${SHARE_TEXT} ${shareUrl}`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const shareViaText = () => {
+    window.open(`sms:?&body=${encodedText}%20${encodedUrl}`, "_blank");
+  };
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <p className="text-cream-dim text-sm font-medium uppercase tracking-widest">Share the Countdown</p>
+      <div className="flex flex-wrap justify-center gap-3">
+        {/* Facebook */}
+        <a
+          href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center gap-2 bg-[#1877F2] hover:bg-[#166FE5] text-white font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 shadow-lg"
+        >
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          Facebook
+        </a>
+
+        {/* Instagram (opens app/profile - no direct share API, so we copy + open) */}
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(`${SHARE_TEXT} ${shareUrl}`);
+            window.open("https://www.instagram.com/", "_blank");
+          }}
+          className="group flex items-center gap-2 bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF] hover:opacity-90 text-white font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 shadow-lg cursor-pointer"
+        >
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+          Instagram
+        </button>
+
+        {/* TikTok */}
+        <button
+          onClick={() => {
+            navigator.clipboard.writeText(`${SHARE_TEXT} ${shareUrl}`);
+            window.open("https://www.tiktok.com/", "_blank");
+          }}
+          className="group flex items-center gap-2 bg-black hover:bg-gray-900 text-white font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 shadow-lg cursor-pointer"
+        >
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.46V13a8.28 8.28 0 005.58 2.16v-3.45a4.85 4.85 0 01-2.65-.78 4.83 4.83 0 01-1.35-1.24V6.69h3z"/>
+          </svg>
+          TikTok
+        </button>
+
+        {/* Copy Link */}
+        <button
+          onClick={copyLink}
+          className="group flex items-center gap-2 bg-coral hover:bg-coral-dark text-navy font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 cursor-pointer shadow-lg shadow-coral/25"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            {copied ? (
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+            )}
+          </svg>
+          {copied ? "Copied!" : "Copy Link"}
+        </button>
+
+        {/* Text Message */}
+        <button
+          onClick={shareViaText}
+          className="group flex items-center gap-2 bg-[#34C759] hover:bg-[#2DB84D] text-white font-bold text-sm px-5 py-3 rounded-full transition-all hover:scale-105 cursor-pointer shadow-lg"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" />
+          </svg>
+          Text Message
+        </button>
+      </div>
+    </div>
+  );
+}
+
 const LAUNCH_DATE = new Date("2026-05-05T12:00:00-05:00").getTime();
 
 function getTimeLeft() {
@@ -116,40 +215,23 @@ export default function Countdown() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.3}>
-          <div className="flex flex-col items-center mt-10 gap-4">
+          <div className="flex flex-col items-center mt-10 gap-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 relative">
+              <div className="w-20 h-20 relative">
                 <Image
                   src="/images/mascot/blox_celebrating.png"
                   alt="Blox"
-                  width={48}
-                  height={48}
+                  width={80}
+                  height={80}
                   className="drop-shadow-md"
                 />
               </div>
-              <p className="text-cream-dim text-sm">
+              <p className="text-cream-dim text-lg sm:text-xl font-medium">
                 Count down with us!
               </p>
             </div>
 
-            <button
-              onClick={() => {
-                const url = window.location.origin + "/#countdown";
-                const text = "Bloxify drops May 5 — count down with us!";
-                if (navigator.share) {
-                  navigator.share({ title: "Bloxify Countdown", text, url });
-                } else {
-                  navigator.clipboard.writeText(`${text} ${url}`);
-                  alert("Link copied!");
-                }
-              }}
-              className="group flex items-center gap-2.5 bg-coral hover:bg-coral-dark text-navy font-bold text-sm px-6 py-3 rounded-full transition-all hover:scale-105 cursor-pointer shadow-lg shadow-coral/25"
-            >
-              <svg className="w-4.5 h-4.5 transition-transform group-hover:-rotate-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
-              </svg>
-              Share the Countdown
-            </button>
+            <ShareButtons />
           </div>
         </AnimatedSection>
       </div>

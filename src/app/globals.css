@@ -124,6 +124,25 @@ html {
   }
 }
 
+/* Grid floating animations */
+@keyframes gridFloat {
+  0%, 100% { transform: rotate(6deg) translate(0, 0); }
+  25% { transform: rotate(8deg) translate(15px, -10px); }
+  50% { transform: rotate(4deg) translate(-10px, 15px); }
+  75% { transform: rotate(7deg) translate(10px, 5px); }
+}
+
+@keyframes gridFloat2 {
+  0%, 100% { transform: rotate(-8deg) translate(0, 0); }
+  33% { transform: rotate(-6deg) translate(-12px, -15px); }
+  66% { transform: rotate(-10deg) translate(15px, 10px); }
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
 /* Marquee scroll */
 @keyframes marquee {
   0% { transform: translateX(0); }
