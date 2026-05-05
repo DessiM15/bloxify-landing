@@ -50,7 +50,7 @@ export default function GameGridBg({ variant = 1 }: GameGridBgProps) {
         style={{
           top: "10%",
           left: "5%",
-          animation: "gridWander1 25s ease-in-out infinite, gridPulse 3s ease-in-out infinite",
+          animation: "gridWander1 80s ease-in-out infinite, gridPulse 6s ease-in-out infinite",
         }}
       >
         {Array.from({ length: 9 }, (_, i) => (
@@ -77,7 +77,7 @@ export default function GameGridBg({ variant = 1 }: GameGridBgProps) {
         style={{
           top: "60%",
           right: "5%",
-          animation: "gridWander2 30s ease-in-out infinite, gridPulse 4s ease-in-out 1.5s infinite",
+          animation: "gridWander2 90s ease-in-out infinite, gridPulse 8s ease-in-out 3s infinite",
         }}
       >
         {Array.from({ length: 9 }, (_, i) => (
