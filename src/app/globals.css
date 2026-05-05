@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+:root {
+  --navy: #0F1220;
+  --navy-light: #1A1F35;
+  --navy-lighter: #252B45;
+  --coral: #FF7F50;
+  --coral-dark: #E56B3E;
+  --cream: #FFE4D6;
+  --cream-dim: #FFE4D6CC;
+  --block-red: #E24B4A;
+  --block-orange: #EF9F27;
+  --block-blue: #378ADD;
+  --background: var(--navy);
+  --foreground: var(--cream);
+}
+
+@theme inline {
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-navy-lighter: var(--navy-lighter);
+  --color-coral: var(--coral);
+  --color-coral-dark: var(--coral-dark);
+  --color-cream: var(--cream);
+  --color-cream-dim: var(--cream-dim);
+  --color-block-red: var(--block-red);
+  --color-block-orange: var(--block-orange);
+  --color-block-blue: var(--block-blue);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-jakarta);
+}
+
+body {
+  background: var(--navy);
+  color: var(--cream);
+  font-family: var(--font-jakarta), sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Float animation keyframes */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(-3deg); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(3deg); }
+  66% { transform: translateY(-18px) rotate(-2deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* Glass morphism utility */
+.glass {
+  background: rgba(26, 31, 53, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 228, 214, 0.1);
+}
+
+.glass-strong {
+  background: rgba(26, 31, 53, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 228, 214, 0.15);
+}
+
+/* Hide scrollbar for horizontal scroll */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Custom selection color */
+::selection {
+  background: rgba(255, 127, 80, 0.3);
+  color: #FFE4D6;
+}
