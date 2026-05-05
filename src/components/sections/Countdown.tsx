@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import AnimatedSection from "../ui/AnimatedSection";
 
@@ -19,12 +19,28 @@ function getTimeLeft() {
 
 const blockColors = ["bg-block-red", "bg-block-orange", "bg-block-blue", "bg-coral"] as const;
 
+const blobs = [
+  { baseX: 10, baseY: 25, intensity: 1, color: "bg-block-red/15", size: "w-72 h-72" },
+  { baseX: 80, baseY: 75, intensity: 0.7, color: "bg-block-blue/12", size: "w-96 h-96" },
+  { baseX: 55, baseY: 10, intensity: 0.5, color: "bg-block-orange/10", size: "w-64 h-64" },
+];
+
 export default function Countdown() {
   const [time, setTime] = useState(getTimeLeft);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [mouse, setMouse] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
     const timer = setInterval(() => setTime(getTimeLeft()), 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMouse({ x, y });
   }, []);
 
   const units = [
@@ -35,11 +51,28 @@ export default function Countdown() {
   ];
 
   return (
-    <section id="countdown" className="relative py-20 sm:py-28 px-4 bg-gradient-to-br from-navy via-navy-light to-navy overflow-hidden">
-      {/* Animated spotlight blobs */}
-      <div className="absolute top-1/4 left-0 w-72 h-72 bg-block-red/10 rounded-full blur-3xl" style={{ animation: "spotlight-1 12s ease-in-out infinite" }} />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-block-blue/10 rounded-full blur-3xl" style={{ animation: "spotlight-2 15s ease-in-out infinite" }} />
-      <div className="absolute top-0 right-1/3 w-64 h-64 bg-block-orange/8 rounded-full blur-3xl" style={{ animation: "spotlight-3 10s ease-in-out infinite" }} />
+    <section
+      id="countdown"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      className="relative py-20 sm:py-28 px-4 bg-gradient-to-br from-navy via-navy-light to-navy overflow-hidden"
+    >
+      {/* Interactive spotlight blobs — follow mouse on desktop, static on mobile */}
+      {blobs.map((blob, i) => {
+        const offsetX = (mouse.x - 50) * 0.4 * blob.intensity;
+        const offsetY = (mouse.y - 50) * 0.4 * blob.intensity;
+        return (
+          <div
+            key={i}
+            className={`absolute ${blob.color} ${blob.size} rounded-full blur-3xl pointer-events-none transition-transform duration-700 ease-out`}
+            style={{
+              left: `${blob.baseX}%`,
+              top: `${blob.baseY}%`,
+              transform: `translate(-50%, -50%) translate(${offsetX}px, ${offsetY}px)`,
+            }}
+          />
+        );
+      })}
 
       <div className="max-w-4xl mx-auto relative z-10">
         <AnimatedSection>
