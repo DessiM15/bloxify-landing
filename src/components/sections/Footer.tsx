@@ -5,6 +5,7 @@ const footerLinks = [
   { label: "Terms of Service", href: "/terms" },
   { label: "Press Kit", href: "/press" },
   { label: "Support", href: "mailto:support@bloxify.app" },
+  { label: "Delete Account", href: "/delete-account" },
 ];
 
 export default function Footer() {
