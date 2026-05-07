@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const dynamic = "force-dynamic";
 
-const LAUNCH_DATE = new Date("2026-05-13T12:00:00-05:00").getTime();
+const LAUNCH_DATE = new Date("2026-05-16T20:00:00-05:00").getTime();
 
 const blockColors = ["#E24B4A", "#EF9F27", "#378ADD", "#FF7F50"];
 const labels = ["Days", "Hours", "Min", "Sec"];

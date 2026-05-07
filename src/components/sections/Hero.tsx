@@ -33,7 +33,7 @@ export default function Hero() {
             <p className="mt-6 text-lg sm:text-xl text-cream-dim max-w-xl mx-auto lg:mx-0">
               Satisfying clears. Daily challenges. Six handcrafted realms.
               One premium puzzle experience — launching{" "}
-              <span className="text-coral font-semibold">May 13, 2026</span> on
+              <span className="text-coral font-semibold">May 16, 2026</span> on
               Google Play.
             </p>
 

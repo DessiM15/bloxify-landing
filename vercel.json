@@ -2,11 +2,15 @@
   "crons": [
     {
       "path": "/api/cron/launch-emails",
-      "schedule": "0 5 13 5 *"
+      "schedule": "0 13 16 5 *"
     },
     {
       "path": "/api/cron/launch-emails",
-      "schedule": "0 12 13 5 *"
+      "schedule": "0 20 16 5 *"
+    },
+    {
+      "path": "/api/cron/launch-emails",
+      "schedule": "0 1 17 5 *"
     }
   ]
 }
