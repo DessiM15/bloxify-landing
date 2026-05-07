@@ -126,6 +126,17 @@ export default function Countdown() {
         />
       ))}
 
+      {/* Blox in the left empty space — desktop only. Mobile keeps the inline Blox next to "Stay tuned!" */}
+      <div className="hidden lg:block absolute left-8 xl:left-16 top-1/2 -translate-y-1/2 w-28 h-28 pointer-events-none z-0">
+        <Image
+          src="/images/mascot/blox_celebrating.png"
+          alt="Blox"
+          width={112}
+          height={112}
+          className="drop-shadow-md"
+        />
+      </div>
+
       <div className="max-w-4xl mx-auto relative z-10">
         <AnimatedSection>
           <div className="text-center mb-10">
@@ -158,7 +169,7 @@ export default function Countdown() {
         <AnimatedSection delay={0.3}>
           <div className="flex flex-col items-center mt-10 gap-6">
             <div className="flex items-center gap-3">
-              <div className="w-28 h-28 relative">
+              <div className="w-28 h-28 relative lg:hidden">
                 <Image
                   src="/images/mascot/blox_celebrating.png"
                   alt="Blox"
