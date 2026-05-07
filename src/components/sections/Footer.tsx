@@ -25,7 +25,7 @@ export default function Footer() {
               />
             </a>
             <p className="text-cream-dim text-sm mt-1">
-              Built by Stead Games Studio
+              Built by Steady Games Studio
             </p>
             <p className="text-cream-dim text-sm">
               Contact:{" "}
@@ -82,7 +82,7 @@ export default function Footer() {
 
         <div className="mt-8 pt-6 border-t border-cream/5 text-center">
           <p className="text-cream-dim/50 text-xs">
-            &copy; {new Date().getFullYear()} Stead Games Studio. All rights
+            &copy; {new Date().getFullYear()} Steady Games Studio. All rights
             reserved. Google Play and the Google Play logo are trademarks of
             Google LLC.
           </p>

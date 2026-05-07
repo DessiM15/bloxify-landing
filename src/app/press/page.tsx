@@ -77,11 +77,11 @@ export default function PressKit() {
               </div>
               <div>
                 <dt className="text-cream/50">Launch Date</dt>
-                <dd className="text-cream font-semibold">May 6, 2026</dd>
+                <dd className="text-cream font-semibold">May 9, 2026</dd>
               </div>
               <div>
                 <dt className="text-cream/50">Studio</dt>
-                <dd className="text-cream font-semibold">Stead Games Studio</dd>
+                <dd className="text-cream font-semibold">Steady Games Studio</dd>
               </div>
               <div>
                 <dt className="text-cream/50">Genre</dt>
@@ -244,7 +244,7 @@ export default function PressKit() {
           <h2 className="text-2xl font-bold text-cream mb-4">About the Studio</h2>
           <div className="glass rounded-2xl p-6 sm:p-8">
             <p className="text-cream-dim leading-relaxed mb-4">
-              Stead Games Studio is an independent game development studio focused on crafting polished mobile puzzle experiences. Bloxify is the studio&apos;s debut title.
+              Steady Games Studio is an independent game development studio focused on crafting polished mobile puzzle experiences. Bloxify is the studio&apos;s debut title.
             </p>
             <p className="text-cream-dim">
               <strong className="text-cream">Press contact:</strong>{" "}
