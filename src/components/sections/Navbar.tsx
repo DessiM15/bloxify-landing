@@ -57,6 +57,12 @@ export default function Navbar() {
             </svg>
           </a>
           <a
+            href="/artists"
+            className="text-cream-dim hover:text-coral transition-colors text-sm font-semibold"
+          >
+            Artists
+          </a>
+          <a
             href="https://play.google.com/store/apps/details?id=com.bloxify.app"
             target="_blank"
             rel="noopener noreferrer"
