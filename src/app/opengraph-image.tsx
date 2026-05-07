@@ -7,7 +7,7 @@ export const contentType = "image/png";
 // Force dynamic so the countdown updates on each fetch
 export const dynamic = "force-dynamic";
 
-const LAUNCH_DATE = new Date("2026-05-06T12:00:00-05:00").getTime();
+const LAUNCH_DATE = new Date("2026-05-09T12:00:00-05:00").getTime();
 
 function getTimeLeft() {
   const diff = Math.max(0, LAUNCH_DATE - Date.now());
@@ -79,7 +79,7 @@ export default function OGImage() {
               Launching on Google Play
             </span>
             <span style={{ color: "#FFE4D6", fontSize: 48, fontWeight: 800, marginBottom: 40 }}>
-              May 6, 2026
+              May 9, 2026
             </span>
 
             {/* Countdown blocks */}

@@ -1,8 +1,8 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
-// Launch: May 6, 2026 17:00 UTC (12:00 CDT)
-const LAUNCH_UTC = new Date("2026-05-06T17:00:00Z");
+// Launch: May 9, 2026 17:00 UTC (12:00 CDT)
+const LAUNCH_UTC = new Date("2026-05-09T17:00:00Z");
 const FROM = "Bloxify <hello@updates.bloxify.app>";
 
 type EmailTier = {
