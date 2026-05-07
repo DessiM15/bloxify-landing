@@ -7,14 +7,14 @@ import SectionHeading from "../ui/SectionHeading";
 
 const tracks = [
   {
-    title: "Dream",
-    description: "Ambient puzzle soundtrack for focused play",
+    title: "Good Vibrations",
+    description: "Feel-good electronic warmth — your welcome to Bloxify",
     spotifyUrl: "https://open.spotify.com/track/3C4cOyc2ZCyhhKqoTZBp9B?si=c9db797d67b64191",
     embedUrl: "https://open.spotify.com/embed/track/3C4cOyc2ZCyhhKqoTZBp9B?utm_source=generator&theme=0",
   },
   {
     title: "My Dear",
-    description: "High-energy beats for competitive sessions",
+    description: "Driving electronic melody for the high-stakes Blitz mode",
     spotifyUrl: "https://open.spotify.com/track/10lteau9b0rt14OXHI7Pm2?si=4c248d69abee41b7",
     embedUrl: "https://open.spotify.com/embed/track/10lteau9b0rt14OXHI7Pm2?utm_source=generator&theme=0",
   },
