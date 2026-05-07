@@ -3,13 +3,23 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
+const LAUNCH_DATE = new Date("2026-05-16T20:00:00-05:00").getTime();
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [launched, setLaunched] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const check = () => setLaunched(Date.now() >= LAUNCH_DATE);
+    check();
+    const id = setInterval(check, 60000);
+    return () => clearInterval(id);
   }, []);
 
   return (
@@ -62,14 +72,23 @@ export default function Navbar() {
           >
             Artists
           </a>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.bloxify.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-coral px-7 py-3.5 text-base font-bold text-navy transition-colors hover:bg-coral-dark"
-          >
-            Download
-          </a>
+          {launched ? (
+            <a
+              href="https://play.google.com/store/apps/details?id=com.bloxify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-coral px-7 py-3.5 text-base font-bold text-navy transition-colors hover:bg-coral-dark"
+            >
+              Download
+            </a>
+          ) : (
+            <a
+              href="#countdown"
+              className="rounded-full bg-coral px-7 py-3.5 text-base font-bold text-navy transition-colors hover:bg-coral-dark"
+            >
+              Get Updates
+            </a>
+          )}
         </div>
       </div>
     </nav>
