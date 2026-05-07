@@ -127,10 +127,10 @@ export default function Countdown() {
       ))}
 
       {/* Blox in the left empty space — desktop only. Mobile keeps the inline Blox next to "Stay tuned!" */}
-      <div className="hidden lg:block absolute left-8 xl:left-16 top-1/2 -translate-y-1/2 w-[448px] h-[448px] pointer-events-none z-0">
+      <div className="hidden lg:block absolute left-0 xl:left-8 top-1/2 -translate-y-1/2 w-[448px] h-[448px] pointer-events-none z-0">
         <Image
-          src="/images/mascot/blox_celebrating.png"
-          alt="Blox"
+          src="/images/mascot/blox_presenting-removebg-preview.png"
+          alt="Blox presenting"
           width={448}
           height={448}
           className="drop-shadow-md"
