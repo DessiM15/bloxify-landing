@@ -93,11 +93,73 @@ const tracks = [
   },
 ];
 
+/* Floating music notes config — rendered once at SSR, animated via CSS */
+const notes = [
+  { char: "♪", left: 5, size: 24, opacity: 0.07, duration: 18, delay: 0 },
+  { char: "♫", left: 12, size: 20, opacity: 0.05, duration: 22, delay: 3 },
+  { char: "♬", left: 20, size: 28, opacity: 0.08, duration: 16, delay: 7 },
+  { char: "♪", left: 30, size: 18, opacity: 0.06, duration: 20, delay: 2 },
+  { char: "♫", left: 40, size: 32, opacity: 0.07, duration: 24, delay: 5 },
+  { char: "♪", left: 50, size: 22, opacity: 0.05, duration: 19, delay: 8 },
+  { char: "♬", left: 58, size: 26, opacity: 0.08, duration: 17, delay: 1 },
+  { char: "♫", left: 65, size: 20, opacity: 0.06, duration: 21, delay: 4 },
+  { char: "♪", left: 75, size: 30, opacity: 0.07, duration: 23, delay: 6 },
+  { char: "♬", left: 82, size: 18, opacity: 0.05, duration: 18, delay: 9 },
+  { char: "♫", left: 88, size: 24, opacity: 0.08, duration: 20, delay: 3 },
+  { char: "♪", left: 95, size: 22, opacity: 0.06, duration: 22, delay: 7 },
+  { char: "♬", left: 8, size: 26, opacity: 0.06, duration: 25, delay: 10 },
+  { char: "♪", left: 35, size: 20, opacity: 0.05, duration: 19, delay: 11 },
+  { char: "♫", left: 55, size: 28, opacity: 0.07, duration: 21, delay: 13 },
+  { char: "♬", left: 72, size: 22, opacity: 0.06, duration: 17, delay: 12 },
+  { char: "♪", left: 92, size: 18, opacity: 0.05, duration: 23, delay: 14 },
+  { char: "♫", left: 18, size: 24, opacity: 0.07, duration: 20, delay: 15 },
+];
+
 export default function ArtistsPage() {
   return (
-    <div className="min-h-screen bg-navy">
+    <div className="min-h-screen bg-navy relative overflow-hidden">
+      {/* Floating music notes keyframes */}
+      <style>{`
+        @keyframes float-note {
+          0% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+          }
+          10% {
+            opacity: var(--note-opacity);
+          }
+          90% {
+            opacity: var(--note-opacity);
+          }
+          100% {
+            transform: translateY(-100px) rotate(360deg);
+            opacity: 0;
+          }
+        }
+      `}</style>
+
+      {/* Floating music notes background */}
+      <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
+        {notes.map((note, i) => (
+          <span
+            key={i}
+            className="absolute text-coral"
+            style={{
+              left: `${note.left}%`,
+              fontSize: note.size,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              ["--note-opacity" as any]: note.opacity,
+              opacity: 0,
+              animation: `float-note ${note.duration}s ${note.delay}s linear infinite`,
+            }}
+          >
+            {note.char}
+          </span>
+        ))}
+      </div>
+
       {/* Header */}
-      <header className="border-b border-cream/10 py-4 px-4">
+      <header className="relative z-10 border-b border-cream/10 py-4 px-4">
         <div className="max-w-5xl mx-auto flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <Image src="/images/icon.png" alt="Bloxify" width={32} height={32} className="rounded-lg" />
@@ -107,17 +169,32 @@ export default function ArtistsPage() {
       </header>
 
       {/* Content */}
-      <main className="max-w-5xl mx-auto px-4 py-12">
-        {/* Hero */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4">
-            <span className="bg-gradient-to-r from-coral via-block-orange to-block-red bg-clip-text text-transparent">
-              Be Part of Something Special
-            </span>
-          </h1>
-          <p className="text-cream-dim text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
-            We&apos;re building a game that celebrates independent artists. If your music could soundtrack a puzzle adventure, we want to hear from you.
-          </p>
+      <main className="relative z-10 max-w-5xl mx-auto px-4 py-12">
+        {/* Hero with Blox mascot */}
+        <div className="text-center mb-16 relative">
+          <div className="flex flex-col items-center sm:flex-row sm:justify-center sm:items-center gap-6 sm:gap-10">
+            {/* Mascot — left side on desktop, above text on mobile */}
+            <div className="w-32 h-32 sm:w-40 sm:h-40 relative flex-shrink-0">
+              <Image
+                src="/images/mascot/blox_presenting.png"
+                alt="Blox presenting"
+                width={160}
+                height={160}
+                className="drop-shadow-lg"
+              />
+            </div>
+
+            <div className="flex-1 max-w-2xl">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-4">
+                <span className="bg-gradient-to-r from-coral via-block-orange to-block-red bg-clip-text text-transparent">
+                  Be Part of Something Special
+                </span>
+              </h1>
+              <p className="text-cream-dim text-lg sm:text-xl leading-relaxed">
+                We&apos;re building a game that celebrates independent artists. If your music could soundtrack a puzzle adventure, we want to hear from you.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Benefits Grid */}
@@ -209,9 +286,45 @@ export default function ArtistsPage() {
           </div>
         </section>
 
-        {/* Submission Form + FAQ */}
+        {/* Submission Form + FAQ with Blox mascot */}
         <section className="mb-16 max-w-2xl mx-auto">
-          <ArtistSubmissionForm />
+          <div className="flex items-start gap-6">
+            {/* Mascot — desktop only, left side of form */}
+            <div className="hidden lg:flex flex-col items-center gap-3 flex-shrink-0 sticky top-32">
+              <div className="w-28 h-28 relative">
+                <Image
+                  src="/images/mascot/blox_presenting.png"
+                  alt="Blox presenting"
+                  width={112}
+                  height={112}
+                  className="drop-shadow-md"
+                />
+              </div>
+              <p className="text-cream-dim text-sm font-medium text-center max-w-[120px]">
+                We&apos;d love to hear your music!
+              </p>
+            </div>
+
+            <div className="flex-1 min-w-0">
+              {/* Mobile mascot — inline above form */}
+              <div className="flex items-center gap-3 mb-6 lg:hidden justify-center">
+                <div className="w-20 h-20 relative">
+                  <Image
+                    src="/images/mascot/blox_presenting.png"
+                    alt="Blox presenting"
+                    width={80}
+                    height={80}
+                    className="drop-shadow-md"
+                  />
+                </div>
+                <p className="text-cream-dim text-sm font-medium">
+                  We&apos;d love to hear your music!
+                </p>
+              </div>
+
+              <ArtistSubmissionForm />
+            </div>
+          </div>
         </section>
 
         {/* Back link */}
