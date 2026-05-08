@@ -82,7 +82,7 @@ const steps = [
 
 const tracks = [
   {
-    title: "Dream",
+    title: "Good Vibrations",
     description: "Ambient puzzle soundtrack for focused play",
     spotifyUrl: "https://open.spotify.com/track/3C4cOyc2ZCyhhKqoTZBp9B?si=c9db797d67b64191",
   },
@@ -162,8 +162,7 @@ export default function ArtistsPage() {
       <header className="relative z-10 border-b border-cream/10 py-4 px-4">
         <div className="max-w-5xl mx-auto flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <Image src="/images/icon.png" alt="Bloxify" width={32} height={32} className="rounded-lg" />
-            <span className="text-lg font-bold text-cream">Bloxify</span>
+            <Image src="/images/bloxify_wordmark_update.png" alt="Bloxify" width={120} height={32} className="object-contain" />
           </Link>
         </div>
       </header>
