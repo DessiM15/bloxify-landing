@@ -87,7 +87,7 @@ export default function OGImage() {
                 Launching on Google Play
               </span>
               <span style={{ color: "#FFE4D6", fontSize: 42, fontWeight: 800, marginBottom: 32 }}>
-                May 16, 2026
+                June 4, 2026
               </span>
 
               {/* Countdown blocks */}

@@ -431,7 +431,7 @@ export default function Countdown() {
                   Launching on Google Play
                 </p>
                 <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-cream">
-                  May 16, 2026
+                  June 4, 2026
                 </h2>
               </div>
             </AnimatedSection>

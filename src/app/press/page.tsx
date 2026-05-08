@@ -77,7 +77,7 @@ export default function PressKit() {
               </div>
               <div>
                 <dt className="text-cream/50">Launch Date</dt>
-                <dd className="text-cream font-semibold">May 16, 2026</dd>
+                <dd className="text-cream font-semibold">June 4, 2026</dd>
               </div>
               <div>
                 <dt className="text-cream/50">Studio</dt>

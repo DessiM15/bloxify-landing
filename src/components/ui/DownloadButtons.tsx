@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import WaitlistForm from "./WaitlistForm";
 
-const LAUNCH_DATE = new Date("2026-05-16T20:00:00-05:00").getTime();
+const LAUNCH_DATE = new Date("2026-06-04T12:00:00-05:00").getTime();
 
 interface DownloadButtonsProps {
   compact?: boolean;
