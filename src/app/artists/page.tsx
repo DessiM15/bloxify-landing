@@ -162,7 +162,7 @@ export default function ArtistsPage() {
       <header className="relative z-10 border-b border-cream/10 py-4 px-4">
         <div className="max-w-5xl mx-auto flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-            <Image src="/images/bloxify_wordmark_update.png" alt="Bloxify" width={120} height={32} className="object-contain" />
+            <Image src="/images/bloxify-wordmark.png" alt="Bloxify" width={200} height={56} className="h-[52px] w-auto" />
           </Link>
         </div>
       </header>
