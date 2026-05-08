@@ -173,12 +173,12 @@ export default function ArtistsPage() {
         <div className="text-center mb-16 relative">
           <div className="flex flex-col items-center sm:flex-row sm:justify-center sm:items-center gap-6 sm:gap-10">
             {/* Mascot — left side on desktop, above text on mobile */}
-            <div className="w-32 h-32 sm:w-40 sm:h-40 relative flex-shrink-0">
+            <div className="w-32 h-32 sm:w-60 sm:h-60 relative flex-shrink-0">
               <Image
                 src="/images/mascot/blox_headphones_bloxify_t-shirt.png"
                 alt="Blox vibing in headphones and a Bloxify t-shirt"
-                width={160}
-                height={160}
+                width={240}
+                height={240}
                 className="drop-shadow-lg"
               />
             </div>
