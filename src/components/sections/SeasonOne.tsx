@@ -90,6 +90,8 @@ export default function SeasonOne() {
                 loop
                 muted
                 playsInline
+                preload="auto"
+                poster="/images/backgrounds/season_pass_bg_video_spring-poster.jpg"
                 className="absolute inset-0 w-full h-full object-cover"
               >
                 <source src="/images/backgrounds/season_pass_bg_video_spring.mp4" type="video/mp4" />

@@ -12,16 +12,19 @@ const themes = [
     theme: "Galaxy Theme",
     background: "Neon City Background",
     video: "/videos/galaxy-neon-city.mp4",
+    poster: "/videos/galaxy-neon-city-poster.jpg",
   },
   {
     theme: "Nature & Zen Theme",
     background: "Quiet Stone Background",
     video: "/videos/nature-zen-quiet-stone.mp4",
+    poster: "/videos/nature-zen-quiet-stone-poster.jpg",
   },
   {
     theme: "Unstoppable Theme",
     background: "Deep Ocean Background",
     video: "/videos/unstoppable-deep-ocean.mp4",
+    poster: "/videos/unstoppable-deep-ocean-poster.jpg",
   },
 ];
 
@@ -91,13 +94,13 @@ export default function MakeItYours() {
         <div className="hidden lg:flex items-start justify-between max-w-5xl mx-auto">
           {/* Left: Phone mockup with store recording */}
           <AnimatedSection delay={0.1}>
-            <DeviceMockup video="/videos/theme-store-recording.mp4" />
+            <DeviceMockup video="/videos/theme-store-recording.mp4" poster="/videos/theme-store-recording-poster.jpg" />
           </AnimatedSection>
 
           {/* Right: Theme video carousel in same phone mockup */}
           <AnimatedSection delay={0.2}>
             <div className="space-y-5">
-              <DeviceMockup video={themes[themeIndex].video} videoKey={themeIndex} />
+              <DeviceMockup video={themes[themeIndex].video} videoKey={themeIndex} poster={themes[themeIndex].poster} />
 
               {/* Theme & Background labels */}
               <AnimatePresence mode="wait">
@@ -178,14 +181,14 @@ function MobileCarousel({
                   <p className="text-navy/40 text-xs font-semibold uppercase tracking-widest">
                     Theme Store
                   </p>
-                  <DeviceMockup video="/videos/theme-store-recording.mp4" />
+                  <DeviceMockup video="/videos/theme-store-recording.mp4" poster="/videos/theme-store-recording-poster.jpg" />
                 </div>
               ) : (
                 <div className="text-center space-y-3">
                   <p className="text-navy/40 text-xs font-semibold uppercase tracking-widest">
                     Themes & Backgrounds
                   </p>
-                  <DeviceMockup video={currentTheme!.video} />
+                  <DeviceMockup video={currentTheme!.video} poster={currentTheme!.poster} />
                   <p className="text-navy font-bold text-base">{currentTheme!.theme}</p>
                   <p className="text-navy/50 text-sm">{currentTheme!.background}</p>
                 </div>

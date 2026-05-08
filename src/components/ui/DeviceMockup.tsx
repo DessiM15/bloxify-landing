@@ -7,9 +7,10 @@ interface DeviceMockupProps {
   screenshot?: string;
   video?: string;
   videoKey?: number;
+  poster?: string;
 }
 
-export default function DeviceMockup({ screenshot, video, videoKey }: DeviceMockupProps) {
+export default function DeviceMockup({ screenshot, video, videoKey, poster }: DeviceMockupProps) {
   return (
     <div className="relative mx-auto w-[260px] sm:w-[280px]">
       {/* Outer bezel — thick dark navy frame */}
@@ -55,6 +56,8 @@ export default function DeviceMockup({ screenshot, video, videoKey }: DeviceMock
                       loop
                       muted
                       playsInline
+                      preload="auto"
+                      poster={poster}
                       className="w-full h-full object-cover"
                     />
                   </motion.div>
@@ -66,6 +69,8 @@ export default function DeviceMockup({ screenshot, video, videoKey }: DeviceMock
                   loop
                   muted
                   playsInline
+                  preload="auto"
+                  poster={poster || "/videos/hero-gameplay-poster.jpg"}
                   className="w-full h-full object-cover"
                 />
               )}
