@@ -175,8 +175,8 @@ export default function ArtistsPage() {
             {/* Mascot — left side on desktop, above text on mobile */}
             <div className="w-32 h-32 sm:w-40 sm:h-40 relative flex-shrink-0">
               <Image
-                src="/images/mascot/blox_presenting.png"
-                alt="Blox presenting"
+                src="/images/mascot/blox_headphones_bloxify_t-shirt.png"
+                alt="Blox vibing in headphones and a Bloxify t-shirt"
                 width={160}
                 height={160}
                 className="drop-shadow-lg"
