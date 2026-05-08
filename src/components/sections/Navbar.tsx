@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 
-const LAUNCH_DATE = new Date("2026-05-16T20:00:00-05:00").getTime();
+const LAUNCH_DATE = new Date("2026-06-04T12:00:00-05:00").getTime();
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);

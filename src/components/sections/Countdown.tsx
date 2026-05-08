@@ -6,7 +6,7 @@ import Image from "next/image";
 import AnimatedSection from "../ui/AnimatedSection";
 import WaitlistForm from "../ui/WaitlistForm";
 
-const LAUNCH_DATE = new Date("2026-05-16T20:00:00-05:00").getTime();
+const LAUNCH_DATE = new Date("2026-06-04T12:00:00-05:00").getTime();
 
 function getTimeLeft() {
   const diff = Math.max(0, LAUNCH_DATE - Date.now());
