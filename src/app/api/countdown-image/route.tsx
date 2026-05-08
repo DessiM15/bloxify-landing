@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 const LAUNCH_DATE = new Date("2026-05-16T20:00:00-05:00").getTime();
 
 const blockColors = ["#E24B4A", "#EF9F27", "#378ADD", "#FF7F50"];
-const labels = ["Days", "Hours", "Min", "Sec"];
+const labels = ["Days", "Hrs", "Min", "Sec"];
 
 function getTimeLeft() {
   const diff = Math.max(0, LAUNCH_DATE - Date.now());
@@ -31,9 +31,14 @@ export async function GET(request: Request) {
     ? "We're Live!"
     : `${time.days} day${time.days !== 1 ? "s" : ""} until launch!`;
 
-  const blockSize = format === "story" ? 180 : 140;
-  const blockGap = format === "story" ? 24 : 16;
-  const blockFontSize = format === "story" ? 80 : 60;
+  const isStory = format === "story";
+  const blockSize = isStory ? 160 : 120;
+  const blockGap = isStory ? 20 : 14;
+  const blockFontSize = isStory ? 72 : 52;
+  const phoneW = isStory ? 320 : 240;
+  const phoneH = isStory ? 640 : 480;
+  const phoneRadius = isStory ? 44 : 36;
+  const mascotSize = isStory ? 180 : 140;
 
   const image = new ImageResponse(
     (
@@ -47,36 +52,114 @@ export async function GET(request: Request) {
           justifyContent: "center",
           background: "linear-gradient(135deg, #0F1220 0%, #1A1F35 50%, #0F1220 100%)",
           fontFamily: "sans-serif",
+          position: "relative",
         }}
       >
         {/* Wordmark */}
-        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: format === "story" ? 60 : 32 }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 16,
+            marginBottom: isStory ? 40 : 24,
+          }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="https://bloxify.app/images/icon.png"
             alt=""
-            width={72}
-            height={72}
+            width={isStory ? 72 : 56}
+            height={isStory ? 72 : 56}
             style={{ borderRadius: 16 }}
           />
-          <span style={{ color: "#FFE4D6", fontSize: 56, fontWeight: 800 }}>Bloxify</span>
+          <span style={{ color: "#FFE4D6", fontSize: isStory ? 56 : 44, fontWeight: 800 }}>
+            Bloxify
+          </span>
         </div>
 
         {/* Headline */}
         <span
           style={{
             color: "#FF7F50",
-            fontSize: format === "story" ? 48 : 36,
+            fontSize: isStory ? 44 : 32,
             fontWeight: 800,
-            marginBottom: format === "story" ? 48 : 28,
+            marginBottom: isStory ? 36 : 20,
           }}
         >
           {daysText}
         </span>
 
+        {/* Phone mockup + mascot */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+            marginBottom: isStory ? 48 : 24,
+          }}
+        >
+          {/* Phone frame */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: phoneW,
+              height: phoneH,
+              borderRadius: phoneRadius,
+              border: "5px solid #2a2f45",
+              backgroundColor: "#111",
+              overflow: "hidden",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,127,80,0.1)",
+              position: "relative",
+            }}
+          >
+            {/* Notch */}
+            <div
+              style={{
+                display: "flex",
+                position: "absolute",
+                top: 0,
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: isStory ? 100 : 80,
+                height: isStory ? 30 : 24,
+                backgroundColor: "#111",
+                borderBottomLeftRadius: 16,
+                borderBottomRightRadius: 16,
+                zIndex: 2,
+              }}
+            />
+            {/* Screenshot */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://bloxify.app/images/screenshots/adventure-mode.jpg"
+              alt=""
+              width={phoneW}
+              height={phoneH}
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+            />
+          </div>
+
+          {/* Mascot — waving, bottom-right of phone */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://bloxify.app/images/mascot/blox_waving.png"
+            alt=""
+            width={mascotSize}
+            height={Math.round(mascotSize * 1.33)}
+            style={{
+              position: "absolute",
+              bottom: -10,
+              right: isStory ? -60 : -50,
+            }}
+          />
+        </div>
+
         {/* Countdown blocks */}
         {!launched && (
-          <div style={{ display: "flex", gap: blockGap, marginBottom: format === "story" ? 60 : 32 }}>
+          <div style={{ display: "flex", gap: blockGap }}>
             {values.map((val, i) => (
               <div
                 key={i}
@@ -89,13 +172,13 @@ export async function GET(request: Request) {
                 <div
                   style={{
                     width: blockSize,
-                    height: blockSize * 1.07,
-                    borderRadius: 24,
+                    height: Math.round(blockSize * 1.07),
+                    borderRadius: 20,
                     backgroundColor: blockColors[i],
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    boxShadow: "0 6px 0 rgba(0,0,0,0.2), 0 8px 20px rgba(0,0,0,0.3)",
+                    boxShadow: "0 4px 0 rgba(0,0,0,0.2), 0 6px 16px rgba(0,0,0,0.3)",
                   }}
                 >
                   <span style={{ color: "white", fontSize: blockFontSize, fontWeight: 800 }}>
@@ -105,9 +188,9 @@ export async function GET(request: Request) {
                 <span
                   style={{
                     color: "#FFE4D6CC",
-                    fontSize: 16,
+                    fontSize: isStory ? 16 : 13,
                     fontWeight: 600,
-                    marginTop: 12,
+                    marginTop: 10,
                     textTransform: "uppercase",
                     letterSpacing: 2,
                   }}
@@ -119,24 +202,13 @@ export async function GET(request: Request) {
           </div>
         )}
 
-        {/* Mascot */}
-        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: format === "story" ? 40 : 20 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://bloxify.app/images/mascot/blox_celebrating.png"
-            alt=""
-            width={100}
-            height={100}
-          />
-        </div>
-
         {/* Bottom tagline */}
         <span
           style={{
             position: "absolute",
-            bottom: 40,
+            bottom: isStory ? 50 : 30,
             color: "#FFE4D680",
-            fontSize: 20,
+            fontSize: isStory ? 22 : 18,
           }}
         >
           bloxify.app

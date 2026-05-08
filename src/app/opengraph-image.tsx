@@ -20,7 +20,7 @@ function getTimeLeft() {
 }
 
 const blockColors = ["#E24B4A", "#EF9F27", "#378ADD", "#FF7F50"];
-const labels = ["Days", "Hours", "Minutes", "Seconds"];
+const labels = ["Days", "Hrs", "Min", "Sec"];
 
 export default function OGImage() {
   const time = getTimeLeft();
@@ -34,107 +34,184 @@ export default function OGImage() {
           width: "100%",
           height: "100%",
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
           background: "linear-gradient(135deg, #0F1220 0%, #1A1F35 50%, #0F1220 100%)",
           fontFamily: "sans-serif",
+          position: "relative",
         }}
       >
-        {/* App icon + title */}
-        <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 12 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="https://bloxify.app/images/icon.png"
-            alt=""
-            width={56}
-            height={56}
-            style={{ borderRadius: 12 }}
-          />
-          <span style={{ color: "#FFE4D6", fontSize: 40, fontWeight: 800 }}>Bloxify</span>
-        </div>
-
-        {launched ? (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <span style={{ fontSize: 72, fontWeight: 800, color: "#FF7F50", marginBottom: 8 }}>
-              We&apos;re Live! 🎉
-            </span>
-            <span style={{ color: "#FFE4D6CC", fontSize: 28 }}>
-              Available now on Google Play
-            </span>
+        {/* Left side — branding + countdown */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "40px 0 40px 60px",
+            width: "58%",
+          }}
+        >
+          {/* App icon + title */}
+          <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://bloxify.app/images/icon.png"
+              alt=""
+              width={48}
+              height={48}
+              style={{ borderRadius: 10 }}
+            />
+            <span style={{ color: "#FFE4D6", fontSize: 36, fontWeight: 800 }}>Bloxify</span>
           </div>
-        ) : (
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            {/* Launching label */}
-            <span
-              style={{
-                color: "#FF7F50",
-                fontSize: 18,
-                fontWeight: 700,
-                textTransform: "uppercase",
-                letterSpacing: 4,
-                marginBottom: 8,
-              }}
-            >
-              Launching on Google Play
-            </span>
-            <span style={{ color: "#FFE4D6", fontSize: 48, fontWeight: 800, marginBottom: 40 }}>
-              May 16, 2026
-            </span>
 
-            {/* Countdown blocks */}
-            <div style={{ display: "flex", gap: 24 }}>
-              {values.map((val, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                  }}
-                >
+          {launched ? (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <span style={{ fontSize: 56, fontWeight: 800, color: "#FF7F50", marginBottom: 8 }}>
+                We&apos;re Live! 🎉
+              </span>
+              <span style={{ color: "#FFE4D6CC", fontSize: 24 }}>
+                Available now on Google Play
+              </span>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {/* Launching label */}
+              <span
+                style={{
+                  color: "#FF7F50",
+                  fontSize: 15,
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: 4,
+                  marginBottom: 6,
+                }}
+              >
+                Launching on Google Play
+              </span>
+              <span style={{ color: "#FFE4D6", fontSize: 42, fontWeight: 800, marginBottom: 32 }}>
+                May 16, 2026
+              </span>
+
+              {/* Countdown blocks */}
+              <div style={{ display: "flex", gap: 14 }}>
+                {values.map((val, i) => (
                   <div
+                    key={i}
                     style={{
-                      width: 140,
-                      height: 150,
-                      borderRadius: 20,
-                      backgroundColor: blockColors[i],
                       display: "flex",
+                      flexDirection: "column",
                       alignItems: "center",
-                      justifyContent: "center",
-                      boxShadow: "0 6px 0 rgba(0,0,0,0.2), 0 8px 20px rgba(0,0,0,0.3)",
-                      position: "relative",
                     }}
                   >
-                    <span style={{ color: "white", fontSize: 72, fontWeight: 800 }}>
-                      {String(val).padStart(2, "0")}
+                    <div
+                      style={{
+                        width: 100,
+                        height: 107,
+                        borderRadius: 16,
+                        backgroundColor: blockColors[i],
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        boxShadow: "0 4px 0 rgba(0,0,0,0.2), 0 6px 16px rgba(0,0,0,0.3)",
+                      }}
+                    >
+                      <span style={{ color: "white", fontSize: 52, fontWeight: 800 }}>
+                        {String(val).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <span
+                      style={{
+                        color: "#FFE4D6CC",
+                        fontSize: 13,
+                        fontWeight: 600,
+                        marginTop: 8,
+                        textTransform: "uppercase",
+                        letterSpacing: 2,
+                      }}
+                    >
+                      {labels[i]}
                     </span>
                   </div>
-                  <span
-                    style={{
-                      color: "#FFE4D6CC",
-                      fontSize: 16,
-                      fontWeight: 600,
-                      marginTop: 12,
-                      textTransform: "uppercase",
-                      letterSpacing: 2,
-                    }}
-                  >
-                    {labels[i]}
-                  </span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
+          )}
+        </div>
+
+        {/* Right side — phone mockup + mascot */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "42%",
+            position: "relative",
+          }}
+        >
+          {/* Phone frame */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              width: 220,
+              height: 440,
+              borderRadius: 32,
+              border: "4px solid #2a2f45",
+              backgroundColor: "#111",
+              overflow: "hidden",
+              boxShadow: "0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(255,127,80,0.1)",
+              position: "relative",
+            }}
+          >
+            {/* Notch */}
+            <div
+              style={{
+                display: "flex",
+                position: "absolute",
+                top: 0,
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: 80,
+                height: 24,
+                backgroundColor: "#111",
+                borderBottomLeftRadius: 14,
+                borderBottomRightRadius: 14,
+                zIndex: 2,
+              }}
+            />
+            {/* Screenshot */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://bloxify.app/images/screenshots/adventure-mode.jpg"
+              alt=""
+              width={220}
+              height={440}
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+            />
           </div>
-        )}
+
+          {/* Mascot — waving, positioned bottom-right of phone */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://bloxify.app/images/mascot/blox_waving.png"
+            alt=""
+            width={120}
+            height={160}
+            style={{
+              position: "absolute",
+              bottom: 50,
+              right: 30,
+            }}
+          />
+        </div>
 
         {/* Bottom tagline */}
         <span
           style={{
             position: "absolute",
-            bottom: 30,
+            bottom: 20,
+            left: 60,
             color: "#FFE4D680",
-            fontSize: 16,
+            fontSize: 14,
           }}
         >
           bloxify.app
