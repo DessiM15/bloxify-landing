@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import ArtistSubmissionForm from "@/components/sections/ArtistSubmissionForm";
+import ArtistPostDownloader from "@/components/sections/ArtistPostDownloader";
+import { featuredArtist } from "@/lib/artist-data";
 
 export const metadata: Metadata = {
   title: "Artists — Bloxify",
@@ -80,18 +82,7 @@ const steps = [
   },
 ];
 
-const tracks = [
-  {
-    title: "Good Vibrations",
-    description: "Ambient puzzle soundtrack for focused play",
-    spotifyUrl: "https://open.spotify.com/track/3C4cOyc2ZCyhhKqoTZBp9B?si=c9db797d67b64191",
-  },
-  {
-    title: "My Dear",
-    description: "High-energy beats for competitive sessions",
-    spotifyUrl: "https://open.spotify.com/track/10lteau9b0rt14OXHI7Pm2?si=4c248d69abee41b7",
-  },
-];
+const tracks = featuredArtist.tracks;
 
 /* Floating music notes config — rendered once at SSR, animated via CSS */
 const notes = [
@@ -282,6 +273,19 @@ export default function ArtistsPage() {
                 ))}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Share the Music */}
+        <section className="mb-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-cream text-center mb-3">
+            Share the Music
+          </h2>
+          <p className="text-cream-dim text-sm text-center mb-8 max-w-md mx-auto">
+            Download shareable posts featuring {featuredArtist.name} for your socials.
+          </p>
+          <div className="glass rounded-2xl p-6 sm:p-8">
+            <ArtistPostDownloader />
           </div>
         </section>
 

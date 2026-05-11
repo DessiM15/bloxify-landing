@@ -20,6 +20,7 @@ function getTimeLeft() {
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const format = searchParams.get("format") === "square" ? "square" : "story";
+  const inline = searchParams.get("inline") === "true";
 
   const width = 1080;
   const height = format === "story" ? 1920 : 1080;
@@ -218,14 +219,13 @@ export async function GET(request: Request) {
     { width, height }
   );
 
-  // Set content-disposition to trigger download
-  const response = new Response(image.body, {
-    headers: {
-      "Content-Type": "image/png",
-      "Content-Disposition": `attachment; filename="bloxify-countdown-${format}.png"`,
-      "Cache-Control": "no-store",
-    },
-  });
+  const headers: Record<string, string> = {
+    "Content-Type": "image/png",
+    "Cache-Control": "no-store",
+  };
+  if (!inline) {
+    headers["Content-Disposition"] = `attachment; filename="bloxify-countdown-${format}.png"`;
+  }
 
-  return response;
+  return new Response(image.body, { headers });
 }
