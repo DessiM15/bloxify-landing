@@ -450,16 +450,14 @@ export default function Countdown() {
 
       {/* Blox in the left empty space — desktop only. Hidden on launch. */}
       {!launched && (
-        <div className="hidden lg:block absolute left-0 xl:left-8 top-0 bottom-0 w-[448px] pointer-events-none z-0">
-          <div className="sticky top-1/2 -translate-y-1/2 w-[448px] h-[448px]">
-            <Image
-              src="/images/mascot/blox_presenting-removebg-preview.png"
-              alt="Blox presenting"
-              width={448}
-              height={448}
-              className="drop-shadow-md"
-            />
-          </div>
+        <div className="hidden lg:block absolute left-0 xl:left-8 top-1/2 -translate-y-1/2 w-[448px] h-[448px] pointer-events-none z-0">
+          <Image
+            src="/images/mascot/blox_presenting-removebg-preview.png"
+            alt="Blox presenting"
+            width={448}
+            height={448}
+            className="drop-shadow-md"
+          />
         </div>
       )}
 
