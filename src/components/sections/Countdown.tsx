@@ -268,15 +268,16 @@ function CountdownImagePreview() {
 const confettiColors = ["#E24B4A", "#EF9F27", "#378ADD", "#FF7F50", "#FFE4D6", "#34C759"];
 
 function Confetti() {
-  const particles = Array.from({ length: 60 }, (_, i) => ({
+  const particles = Array.from({ length: 100 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
-    delay: Math.random() * 3,
-    duration: 2 + Math.random() * 3,
-    size: 6 + Math.random() * 8,
+    delay: Math.random() * 4,
+    duration: 2.5 + Math.random() * 3.5,
+    size: 6 + Math.random() * 10,
     color: confettiColors[i % confettiColors.length],
-    drift: (Math.random() - 0.5) * 80,
+    drift: (Math.random() - 0.5) * 120,
     rotation: Math.random() * 360,
+    shape: i % 3, // 0 = square, 1 = rectangle, 2 = circle
   }));
 
   return (
@@ -284,18 +285,18 @@ function Confetti() {
       {particles.map((p) => (
         <motion.div
           key={p.id}
-          className="absolute rounded-sm"
+          className={`absolute ${p.shape === 2 ? "rounded-full" : "rounded-sm"}`}
           style={{
             left: `${p.x}%`,
             top: -20,
             width: p.size,
-            height: p.size * 0.6,
+            height: p.shape === 1 ? p.size * 0.4 : p.size * 0.6,
             backgroundColor: p.color,
           }}
           animate={{
             y: [0, typeof window !== "undefined" ? window.innerHeight + 100 : 1100],
             x: [0, p.drift],
-            rotate: [p.rotation, p.rotation + 360],
+            rotate: [p.rotation, p.rotation + 720],
             opacity: [1, 1, 0],
           }}
           transition={{
@@ -310,43 +311,169 @@ function Confetti() {
   );
 }
 
+/* ── Pulsing glow keyframes (injected once) ───── */
+function PulseStyle() {
+  return (
+    <style>{`
+      @keyframes pulse-glow {
+        0%, 100% { box-shadow: 0 0 20px rgba(255,127,80,0.4), 0 0 60px rgba(255,127,80,0.2); }
+        50% { box-shadow: 0 0 30px rgba(255,127,80,0.6), 0 0 80px rgba(255,127,80,0.3); }
+      }
+      .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+      @keyframes bounce-slow {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+      }
+      .bounce-slow { animation: bounce-slow 2s ease-in-out infinite; }
+    `}</style>
+  );
+}
+
+/* ── Google Play Store Card ──────────────────── */
+const PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=app.bloxify";
+
+function StoreListingCard() {
+  return (
+    <a
+      href={PLAY_STORE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block w-full max-w-md mx-auto mt-2 rounded-2xl bg-navy-light/80 border border-cream/10 overflow-hidden transition-all hover:border-coral/40 hover:shadow-xl hover:shadow-coral/10"
+    >
+      {/* Screenshot strip */}
+      <div className="flex gap-2 p-3 pb-0 overflow-hidden">
+        {["adventure-mode.jpg", "zen-mode.jpg", "blitz-mode.jpg"].map((src) => (
+          <div key={src} className="flex-1 rounded-lg overflow-hidden">
+            <Image
+              src={`/images/screenshots/${src}`}
+              alt="Bloxify gameplay"
+              width={160}
+              height={284}
+              className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* App info row */}
+      <div className="flex items-center gap-3 p-4">
+        <Image
+          src="/images/icon.png"
+          alt="Bloxify"
+          width={48}
+          height={48}
+          className="rounded-xl shadow-md"
+        />
+        <div className="flex-1 min-w-0">
+          <p className="text-cream font-bold text-sm truncate">Bloxify — Block Puzzle, Reimagined</p>
+          <p className="text-cream-dim text-xs">Bloxify Games</p>
+        </div>
+        <div className="flex-shrink-0">
+          <Image
+            src="/images/google-play-badge.png"
+            alt="Get it on Google Play"
+            width={120}
+            height={36}
+            className="h-[36px] w-auto"
+          />
+        </div>
+      </div>
+    </a>
+  );
+}
+
 /* ── CelebrationView ──────────────────────────── */
 function CelebrationView() {
   return (
     <div className="relative text-center">
+      <PulseStyle />
       <Confetti />
       <div className="relative z-10 flex flex-col items-center gap-6">
-        <h2 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold">
+        {/* Mascot bouncing */}
+        <div className="bounce-slow">
+          <Image
+            src="/images/mascot/blox_celebrating.png"
+            alt="Blox celebrating"
+            width={140}
+            height={140}
+            className="drop-shadow-lg"
+          />
+        </div>
+
+        {/* Main headline */}
+        <motion.h2
+          className="text-5xl sm:text-6xl lg:text-8xl font-extrabold"
+          initial={{ scale: 0.5, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 200, damping: 12 }}
+        >
           <span className="bg-gradient-to-r from-coral via-block-orange to-block-red bg-clip-text text-transparent">
-            We&apos;re Live!
+            WE&apos;RE LIVE!!!
           </span>
-        </h2>
-        <p className="text-cream-dim text-lg">Available now on Google Play</p>
-        <a
-          href="https://play.google.com/store/apps/details?id=com.bloxify.app"
+        </motion.h2>
+
+        <motion.p
+          className="text-cream text-xl sm:text-2xl font-bold"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          Download and Play NOW
+        </motion.p>
+
+        <motion.p
+          className="text-cream-dim text-base sm:text-lg max-w-md"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          Bloxify is officially available on Google Play. Your puzzle journey starts here.
+        </motion.p>
+
+        {/* Primary CTA button with pulsing glow */}
+        <motion.a
+          href={PLAY_STORE_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 bg-coral hover:bg-coral-dark text-navy font-bold text-lg px-8 py-4 rounded-full transition-colors shadow-lg shadow-coral/25"
+          className="pulse-glow inline-flex items-center gap-3 bg-coral hover:bg-coral-dark text-navy font-extrabold text-xl px-10 py-5 rounded-full transition-colors"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.6, type: "spring" }}
         >
-          <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+          <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
             <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 010 1.38l-2.302 2.302L15.4 12l2.298-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z" />
           </svg>
-          Download on Google Play
-        </a>
-        <div className="flex items-center gap-3 mt-4">
-          <div className="w-28 h-28 relative">
-            <Image
-              src="/images/mascot/blox_celebrating.png"
-              alt="Blox celebrating"
-              width={112}
-              height={112}
-              className="drop-shadow-md"
-            />
-          </div>
-          <p className="text-cream-dim text-lg sm:text-xl font-medium">
-            Let&apos;s go!
-          </p>
-        </div>
+          Download Now — Free
+        </motion.a>
+
+        {/* Google Play badge */}
+        <motion.a
+          href={PLAY_STORE_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block transition-transform hover:scale-105"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          <Image
+            src="/images/google-play-badge.png"
+            alt="Get it on Google Play"
+            width={200}
+            height={60}
+            className="h-[60px] w-auto"
+          />
+        </motion.a>
+
+        {/* Store listing card with screenshots */}
+        <motion.div
+          className="w-full"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+        >
+          <StoreListingCard />
+        </motion.div>
       </div>
     </div>
   );

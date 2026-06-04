@@ -96,7 +96,7 @@ export default function Navbar() {
           </a>
           {launched ? (
             <a
-              href="https://play.google.com/store/apps/details?id=com.bloxify.app"
+              href="https://play.google.com/store/apps/details?id=app.bloxify"
               target="_blank"
               rel="noopener noreferrer"
               className="rounded-full bg-coral px-7 py-3.5 text-base font-bold text-navy transition-colors hover:bg-coral-dark"

@@ -1,12 +1,24 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import FallingBlocks from "../ui/FallingBlocks";
 import DownloadButtons from "../ui/DownloadButtons";
 import DeviceMockup from "../ui/DeviceMockup";
 
+const LAUNCH_DATE = new Date("2026-06-04T12:00:00-05:00").getTime();
+
 export default function Hero() {
+  const [launched, setLaunched] = useState(false);
+
+  useEffect(() => {
+    const check = () => setLaunched(Date.now() >= LAUNCH_DATE);
+    check();
+    const id = setInterval(check, 1000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden">
       {/* Background gradient */}
@@ -32,9 +44,16 @@ export default function Hero() {
 
             <p className="mt-6 text-lg sm:text-xl text-cream-dim max-w-xl mx-auto lg:mx-0">
               Satisfying clears. Daily challenges. Six handcrafted realms.
-              One premium puzzle experience — launching{" "}
-              <span className="text-coral font-semibold">June 4, 2026</span> on
-              Google Play.
+              One premium puzzle experience —{" "}
+              {launched ? (
+                <span className="text-coral font-semibold">available now on Google Play!</span>
+              ) : (
+                <>
+                  launching{" "}
+                  <span className="text-coral font-semibold">June 4, 2026</span> on
+                  Google Play.
+                </>
+              )}
             </p>
 
             <div className="mt-8">

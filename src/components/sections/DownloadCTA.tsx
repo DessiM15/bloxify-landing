@@ -1,10 +1,22 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import AnimatedSection from "../ui/AnimatedSection";
 import DownloadButtons from "../ui/DownloadButtons";
 
+const LAUNCH_DATE = new Date("2026-06-04T12:00:00-05:00").getTime();
+
 export default function DownloadCTA() {
+  const [launched, setLaunched] = useState(false);
+
+  useEffect(() => {
+    const check = () => setLaunched(Date.now() >= LAUNCH_DATE);
+    check();
+    const id = setInterval(check, 60000);
+    return () => clearInterval(id);
+  }, []);
+
   return (
     <section className="relative py-24 px-4 bg-gradient-to-br from-coral to-block-orange overflow-hidden">
       {/* Decorative background circles */}
@@ -26,11 +38,13 @@ export default function DownloadCTA() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4">
-              Ready to Play?
+              {launched ? "What Are You Waiting For?" : "Ready to Play?"}
             </h2>
             <p className="text-white/80 text-lg max-w-lg mx-auto mb-8">
-              Download Bloxify on Google Play or join the iOS waitlist. Your
-              puzzle journey starts now.
+              {launched
+                ? "Bloxify is live right now on Google Play. Download it free and start your puzzle journey!"
+                : "Download Bloxify on Google Play or join the iOS waitlist. Your puzzle journey starts now."
+              }
             </p>
 
             <DownloadButtons variant="coral" />
