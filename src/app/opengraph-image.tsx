@@ -4,29 +4,10 @@ export const alt = "Bloxify — Block Puzzle, Reimagined";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Force dynamic so the countdown updates on each fetch
-export const dynamic = "force-dynamic";
-
-const LAUNCH_DATE = new Date("2026-06-04T12:00:00-05:00").getTime();
-
-function getTimeLeft() {
-  const diff = Math.max(0, LAUNCH_DATE - Date.now());
-  return {
-    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-    hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-    minutes: Math.floor((diff / (1000 * 60)) % 60),
-    seconds: Math.floor((diff / 1000) % 60),
-  };
-}
-
+// Evergreen brand card — no launch date or countdown, so it never goes stale.
 const blockColors = ["#E24B4A", "#EF9F27", "#378ADD", "#FF7F50"];
-const labels = ["Days", "Hrs", "Min", "Sec"];
 
 export default function OGImage() {
-  const time = getTimeLeft();
-  const values = [time.days, time.hours, time.minutes, time.seconds];
-  const launched = Date.now() >= LAUNCH_DATE;
-
   return new ImageResponse(
     (
       <div
@@ -39,7 +20,7 @@ export default function OGImage() {
           position: "relative",
         }}
       >
-        {/* Left side — branding + countdown */}
+        {/* Left side — branding */}
         <div
           style={{
             display: "flex",
@@ -50,90 +31,67 @@ export default function OGImage() {
           }}
         >
           {/* App icon + title */}
-          <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 28 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://bloxify.app/images/icon.png"
               alt=""
-              width={48}
-              height={48}
-              style={{ borderRadius: 10 }}
+              width={56}
+              height={56}
+              style={{ borderRadius: 12 }}
             />
-            <span style={{ color: "#FFE4D6", fontSize: 36, fontWeight: 800 }}>Bloxify</span>
+            <span style={{ color: "#FFE4D6", fontSize: 40, fontWeight: 800 }}>Bloxify</span>
           </div>
 
-          {launched ? (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontSize: 56, fontWeight: 800, color: "#FF7F50", marginBottom: 8 }}>
-                We&apos;re Live! 🎉
-              </span>
-              <span style={{ color: "#FFE4D6CC", fontSize: 24 }}>
-                Available now on Google Play
-              </span>
-            </div>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              {/* Launching label */}
-              <span
-                style={{
-                  color: "#FF7F50",
-                  fontSize: 15,
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: 4,
-                  marginBottom: 6,
-                }}
-              >
-                Launching on Google Play
-              </span>
-              <span style={{ color: "#FFE4D6", fontSize: 42, fontWeight: 800, marginBottom: 32 }}>
-                June 4, 2026
-              </span>
+          {/* Motto */}
+          <span
+            style={{
+              color: "#FFE4D6",
+              fontSize: 58,
+              fontWeight: 800,
+              lineHeight: 1.1,
+              marginBottom: 12,
+            }}
+          >
+            Drop. Clear. Climb. 🌸
+          </span>
 
-              {/* Countdown blocks */}
-              <div style={{ display: "flex", gap: 14 }}>
-                {values.map((val, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: 100,
-                        height: 107,
-                        borderRadius: 16,
-                        backgroundColor: blockColors[i],
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        boxShadow: "0 4px 0 rgba(0,0,0,0.2), 0 6px 16px rgba(0,0,0,0.3)",
-                      }}
-                    >
-                      <span style={{ color: "white", fontSize: 52, fontWeight: 800 }}>
-                        {String(val).padStart(2, "0")}
-                      </span>
-                    </div>
-                    <span
-                      style={{
-                        color: "#FFE4D6CC",
-                        fontSize: 13,
-                        fontWeight: 600,
-                        marginTop: 8,
-                        textTransform: "uppercase",
-                        letterSpacing: 2,
-                      }}
-                    >
-                      {labels[i]}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          {/* Descriptor */}
+          <span
+            style={{
+              color: "#FF7F50",
+              fontSize: 27,
+              fontWeight: 600,
+              marginBottom: 30,
+            }}
+          >
+            Block Puzzle, Reimagined
+          </span>
+
+          {/* Decorative block accent — brand callback */}
+          <div style={{ display: "flex", gap: 10, marginBottom: 32 }}>
+            {blockColors.map((c, i) => (
+              <div
+                key={i}
+                style={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 7,
+                  backgroundColor: c,
+                  boxShadow: "0 3px 0 rgba(0,0,0,0.2)",
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Google Play badge */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="https://bloxify.app/images/google-play-badge.png"
+            alt="Get it on Google Play"
+            width={155}
+            height={60}
+          />
         </div>
 
         {/* Right side — phone mockup + mascot */}
