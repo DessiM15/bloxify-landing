@@ -25,12 +25,12 @@ export default function PrivacyPolicy() {
         <h1 className="text-3xl sm:text-4xl font-extrabold text-coral mb-1">
           Privacy Policy
         </h1>
-        <p className="text-cream-dim text-sm mb-10">Last updated: 2026-05-04</p>
+        <p className="text-cream-dim text-sm mb-10">Last updated: 2026-06-25</p>
 
         <div className="space-y-8 text-cream-dim leading-relaxed">
           <p>
-            This Privacy Policy describes how Bloxify (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;) collects,
-            uses, and shares your information when you use our mobile application
+            This Privacy Policy describes how Steady Games Studio, LLC (&ldquo;we&rdquo;, &ldquo;us&rdquo;, or &ldquo;our&rdquo;),
+            the developer of Bloxify, collects, uses, and shares your information when you use our mobile application
             (&ldquo;Bloxify&rdquo; or &ldquo;the App&rdquo;). By using the App, you agree to this Privacy Policy.
           </p>
 

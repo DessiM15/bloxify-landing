@@ -81,7 +81,7 @@ export default function PressKit() {
               </div>
               <div>
                 <dt className="text-cream/50">Studio</dt>
-                <dd className="text-cream font-semibold">Steady Games Studio</dd>
+                <dd className="text-cream font-semibold">Steady Games Studio, LLC</dd>
               </div>
               <div>
                 <dt className="text-cream/50">Genre</dt>
@@ -244,7 +244,7 @@ export default function PressKit() {
           <h2 className="text-2xl font-bold text-cream mb-4">About the Studio</h2>
           <div className="glass rounded-2xl p-6 sm:p-8">
             <p className="text-cream-dim leading-relaxed mb-4">
-              Steady Games Studio is an independent game development studio focused on crafting polished mobile puzzle experiences. Bloxify is the studio&apos;s debut title.
+              Steady Games Studio, LLC is an independent game development studio focused on crafting polished mobile puzzle experiences. Bloxify is the studio&apos;s debut title.
             </p>
             <p className="text-cream-dim">
               <strong className="text-cream">Press contact:</strong>{" "}
