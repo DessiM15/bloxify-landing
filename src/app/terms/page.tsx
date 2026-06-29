@@ -218,11 +218,10 @@ export default function TermsOfService() {
           <section>
             <h2 className="text-xl font-bold text-cream mb-4">14. Governing Law</h2>
             <p>
-              These Terms are governed by the laws of the United States and the state in
-              which Steady Games Studio, LLC is organized, without regard to its conflict of
-              law principles. You agree that any dispute arising from these Terms or the App
-              will be resolved in the courts located in that state, unless applicable law
-              requires otherwise.
+              These Terms are governed by the laws of the State of Texas and the United
+              States, without regard to conflict of law principles. You agree that any
+              dispute arising from these Terms or the App will be resolved in the state or
+              federal courts located in Texas, unless applicable law requires otherwise.
             </p>
           </section>
 
