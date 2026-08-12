@@ -102,11 +102,23 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-cream/5 text-center">
+        <div className="mt-8 pt-6 border-t border-cream/5 text-center space-y-2">
           <p className="text-cream-dim/50 text-xs">
             &copy; {new Date().getFullYear()} Steady Games Studio, LLC. All rights
             reserved. Google Play and the Google Play logo are trademarks of
             Google LLC.
+          </p>
+          <p className="text-cream-dim/60 text-xs">
+            Website built by{" "}
+            <a
+              href="https://smartscaleagent.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Smart Scale, LLC — custom web, mobile, and AI software development"
+              className="text-cream-dim hover:text-coral underline underline-offset-2 decoration-cream/20 hover:decoration-coral transition-colors"
+            >
+              Smart Scale, LLC
+            </a>
           </p>
         </div>
       </div>
