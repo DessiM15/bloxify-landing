@@ -25,7 +25,7 @@ export default function DeleteAccount() {
         <h1 className="text-3xl sm:text-4xl font-extrabold text-coral mb-1">
           Delete Your Bloxify Account
         </h1>
-        <p className="text-cream-dim text-sm mb-10">Last updated: 2026-05-05</p>
+        <p className="text-cream-dim text-sm mb-10">Last updated: 2026-10-10</p>
 
         <div className="space-y-8 text-cream-dim leading-relaxed">
           <p>
@@ -34,12 +34,30 @@ export default function DeleteAccount() {
             systems and aim to make the process simple.
           </p>
 
+          {/* Delete in the App */}
+          <section>
+            <h2 className="text-xl font-bold text-cream mb-4">Delete in the App (Fastest)</h2>
+            <div className="bg-cream/5 border border-cream/10 rounded-lg p-5">
+              <p className="mb-3">
+                Open Bloxify and go to{" "}
+                <strong className="text-cream">Settings → Account → Delete Account</strong>, then
+                tap <strong className="text-cream">Delete</strong> to confirm.
+              </p>
+              <p>
+                Your account and all associated data are deleted from our servers immediately,
+                and the app restarts as a fresh install. This works for guest players too. Season
+                Pass purchases belong to your Apple or Google account and can be restored later
+                from the Season Pass screen.
+              </p>
+            </div>
+          </section>
+
           {/* How to Request */}
           <section>
-            <h2 className="text-xl font-bold text-cream mb-4">How to Request Deletion</h2>
+            <h2 className="text-xl font-bold text-cream mb-4">Request Deletion by Email</h2>
             <p className="mb-5">
-              Bloxify currently processes account deletions by email request. Follow the four
-              steps below.
+              If you no longer have the app installed, you can request deletion by email. Follow
+              the four steps below.
             </p>
 
             <div className="space-y-3">
