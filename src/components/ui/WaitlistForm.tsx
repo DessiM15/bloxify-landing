@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 interface WaitlistFormProps {
-  variant?: "dark" | "coral" | "glass";
+  variant?: "dark" | "coral" | "glass" | "neon";
   label?: string;
   placeholder?: string;
   buttonText?: string;
@@ -52,29 +52,29 @@ export default function WaitlistForm({
   };
 
   const isCoral = variant === "coral";
-  const isGlass = variant === "glass";
+  const isNeon = variant === "neon";
 
-  const containerClass = isCoral
-    ? "bg-white/15 border border-white/20"
-    : isGlass
-      ? "glass border border-coral/20"
+  const containerClass = isNeon
+    ? "glass-neon-soft"
+    : isCoral
+      ? "bg-white/15 border border-white/20"
       : "glass border border-coral/20";
 
-  const inputClass = isCoral
-    ? "bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:border-white/40"
-    : "bg-navy-light border border-cream/10 text-cream placeholder:text-cream/40 focus:border-coral/50";
+  const inputClass = isNeon
+    ? "bg-white/5 border border-white/15 text-snow placeholder:text-snow/40 focus:border-cyan focus:shadow-[0_0_0_3px_rgba(53,232,255,0.2)]"
+    : isCoral
+      ? "bg-white/10 border border-white/20 text-white placeholder:text-white/50 focus:border-white/40"
+      : "bg-navy-light border border-cream/10 text-cream placeholder:text-cream/40 focus:border-coral/50";
 
-  const buttonClass = isCoral
-    ? "bg-white text-coral hover:bg-white/90"
-    : "bg-coral text-navy hover:bg-coral-dark";
+  const buttonClass = isNeon
+    ? "btn-neon btn-neon--cyan btn-neon--sm !rounded-xl"
+    : isCoral
+      ? "bg-white text-coral hover:bg-white/90"
+      : "bg-coral text-navy hover:bg-coral-dark";
 
-  const labelClass = isCoral
-    ? "text-white/70"
-    : "text-cream-dim";
+  const labelClass = isNeon ? "text-snow" : isCoral ? "text-white/70" : "text-cream-dim";
 
-  const successClass = isCoral
-    ? "text-white"
-    : "text-coral";
+  const successClass = isNeon ? "text-lime text-glow-lime" : isCoral ? "text-white" : "text-coral";
 
   return (
     <div className="w-full">
@@ -83,7 +83,7 @@ export default function WaitlistForm({
           {label}
         </p>
       )}
-      <div className={`rounded-xl p-3 ${containerClass}`}>
+      <div className={`rounded-2xl p-3 ${containerClass}`}>
         {status === "success" ? (
           <p className={`font-medium text-sm text-center py-1 ${successClass}`}>
             {successMessage}
@@ -102,7 +102,7 @@ export default function WaitlistForm({
             <button
               type="submit"
               disabled={status === "loading"}
-              className={`rounded-lg px-5 py-3 text-base font-semibold whitespace-nowrap transition-colors cursor-pointer disabled:opacity-50 ${buttonClass}`}
+              className={`${isNeon ? "" : "rounded-lg px-5 py-3 text-base font-semibold transition-colors"} whitespace-nowrap cursor-pointer disabled:opacity-50 ${buttonClass}`}
             >
               {status === "loading" ? "..." : buttonText}
             </button>

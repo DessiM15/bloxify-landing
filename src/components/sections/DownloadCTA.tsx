@@ -1,53 +1,45 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import AnimatedSection from "../ui/AnimatedSection";
+import AuroraScene from "../ui/AuroraScene";
+import Text3D from "../ui/Text3D";
 import DownloadButtons from "../ui/DownloadButtons";
 
-const LAUNCH_DATE = new Date("2026-06-04T12:00:00-05:00").getTime();
-
 export default function DownloadCTA() {
-  const [launched, setLaunched] = useState(false);
-
-  useEffect(() => {
-    const check = () => setLaunched(Date.now() >= LAUNCH_DATE);
-    check();
-    const id = setInterval(check, 60000);
-    return () => clearInterval(id);
-  }, []);
-
   return (
-    <section className="relative py-24 px-4 bg-gradient-to-br from-coral to-block-orange overflow-hidden">
-      {/* Decorative background circles */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+    <section id="download" className="relative overflow-hidden px-4 py-24 sm:px-6 sm:py-32">
+      <AuroraScene
+        src="/images/backgrounds/floating_lanterns.jpg"
+        alt="Hundreds of warm paper lanterns rising into a night sky"
+        dim={0.5}
+        position="center 60%"
+        aurora={false}
+      />
 
-      <div className="max-w-4xl mx-auto relative z-10">
-        <AnimatedSection>
-          <div className="text-center">
-            {/* Mascot */}
-            <div className="w-32 h-32 mx-auto mb-6 relative">
-              <Image
-                src="/images/mascot/blox_celebrating.png"
-                alt="Blox celebrating"
-                width={128}
-                height={128}
-                className="drop-shadow-lg"
-              />
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-4">
-              {launched ? "What Are You Waiting For?" : "Ready to Play?"}
-            </h2>
-            <p className="text-white/80 text-lg max-w-lg mx-auto mb-8">
-              {launched
-                ? "Bloxify is live right now on Google Play. Download it free and start your puzzle journey!"
-                : "Download Bloxify on Google Play or join the iOS waitlist. Your puzzle journey starts now."
-              }
-            </p>
-
-            <DownloadButtons variant="coral" />
+      <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center text-center">
+        <AnimatedSection className="flex flex-col items-center">
+          <Image
+            src="/images/mascot/blox_pointing_upward.png"
+            alt="Blox pointing upward with a surprised, excited look"
+            width={186}
+            height={334}
+            className="w-28 drop-shadow-[0_18px_28px_rgba(0,0,0,0.6)] sm:w-36"
+          />
+          <h2 className="mt-4 leading-none">
+            <Text3D tone="ice" className="block text-[length:min(2.4rem,9vw)] sm:text-5xl">
+              WHAT ARE YOU
+            </Text3D>
+            <Text3D tone="sun" className="-mt-1 block text-[length:min(3.6rem,13.5vw)] sm:text-7xl lg:text-8xl">
+              WAITING FOR?
+            </Text3D>
+          </h2>
+          <p className="mt-6 max-w-lg text-lg leading-relaxed text-snow-dim sm:text-xl">
+            Bloxify is live right now on Google Play. Download it free and start your puzzle journey. On iPhone? Join
+            the waitlist and we&apos;ll tell you the moment it lands.
+          </p>
+          <div className="mt-9 w-full">
+            <DownloadButtons />
           </div>
         </AnimatedSection>
       </div>

@@ -1,11 +1,11 @@
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
-import Countdown from "@/components/sections/Countdown";
-import GameModes from "@/components/sections/GameModes";
-import MakeItYours from "@/components/sections/MakeItYours";
 import MarqueeBar from "@/components/ui/MarqueeBar";
+import LiveNow from "@/components/sections/LiveNow";
+import GameModes from "@/components/sections/GameModes";
 import AdventureMode from "@/components/sections/AdventureMode";
-import SeasonOne from "@/components/sections/SeasonOne";
+import Gallery from "@/components/sections/Gallery";
+import MakeItYours from "@/components/sections/MakeItYours";
 import DailyRewards from "@/components/sections/DailyRewards";
 import Soundtrack from "@/components/sections/Soundtrack";
 import DownloadCTA from "@/components/sections/DownloadCTA";
@@ -18,12 +18,12 @@ export default function Home() {
       <main>
         <Hero />
         <MarqueeBar />
-        <Countdown />
+        <LiveNow />
         <GameModes />
         <AdventureMode />
+        <Gallery />
         <MarqueeBar />
         <MakeItYours />
-        <SeasonOne />
         <DailyRewards />
         <Soundtrack />
         <DownloadCTA />

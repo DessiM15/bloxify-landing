@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Lilita_One } from "next/font/google";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
+  subsets: ["latin"],
+  display: "swap",
+});
+
+const lilita = Lilita_One({
+  variable: "--font-lilita",
+  weight: "400",
   subsets: ["latin"],
   display: "swap",
 });
@@ -102,7 +109,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${jakarta.variable} h-full antialiased`}>
+    <html lang="en" className={`${jakarta.variable} ${lilita.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col overflow-x-hidden">
         <script
           type="application/ld+json"
