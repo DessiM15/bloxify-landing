@@ -89,23 +89,13 @@ export default function Hero() {
             className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-snow-dim sm:text-xl lg:mx-0"
           >
             Block puzzle, <span className="font-bold text-snow">reimagined</span>. Satisfying clears,
-            daily challenges, six handcrafted realms and a soundtrack from real artists. Free on Google Play,
-            no forced ads.
+            daily challenges, six handcrafted realms and a soundtrack from real artists. Free on Google Play
+            and the App Store, no forced ads.
           </motion.p>
 
           <motion.div variants={pop} className="mt-9">
-            <DownloadButtons showWaitlist={false} align="start" />
+            <DownloadButtons align="start" />
           </motion.div>
-
-          <motion.p variants={pop} className="mt-5 text-sm text-snow-dim">
-            On iPhone?{" "}
-            <a
-              href="#download"
-              className="font-semibold text-cyan underline decoration-cyan/40 underline-offset-4 transition hover:decoration-cyan"
-            >
-              Join the iOS waitlist
-            </a>
-          </motion.p>
         </motion.div>
 
         {/* ── Visual ── */}

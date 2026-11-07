@@ -35,8 +35,8 @@ export default function DownloadCTA() {
             </Text3D>
           </h2>
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-snow-dim sm:text-xl">
-            Bloxify is live right now on Google Play. Download it free and start your puzzle journey. On iPhone? Join
-            the waitlist and we&apos;ll tell you the moment it lands.
+            Bloxify is live right now on Google Play and the App Store. Download it free on Android or iPhone and
+            start your puzzle journey.
           </p>
           <div className="mt-9 w-full">
             <DownloadButtons />

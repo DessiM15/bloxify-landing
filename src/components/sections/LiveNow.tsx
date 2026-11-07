@@ -284,7 +284,7 @@ export default function LiveNow() {
           </p>
 
           <div className="mt-9">
-            <DownloadButtons showWaitlist={false} align="start" />
+            <DownloadButtons align="start" />
           </div>
 
           <div className="mt-10">

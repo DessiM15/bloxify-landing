@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Logo from "../ui/Logo";
 import NeonButton, { PlayIcon } from "../ui/NeonButton";
 import SocialLinks from "../ui/SocialLinks";
-import { PLAY_STORE_URL } from "../ui/DownloadButtons";
+import { useStoreUrl } from "../ui/DownloadButtons";
 
 const NAV_LINKS = [
   { label: "Modes", href: "/#modes" },
@@ -18,6 +18,8 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const storeUrl = useStoreUrl();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -57,14 +59,14 @@ export default function Navbar() {
         {/* Desktop right */}
         <div className="hidden items-center gap-2 lg:flex">
           <SocialLinks className="hidden xl:flex" />
-          <NeonButton href={PLAY_STORE_URL} size="sm" icon={<PlayIcon className="w-4 h-4" />}>
+          <NeonButton href={storeUrl} size="sm" icon={<PlayIcon className="w-4 h-4" />}>
             Download
           </NeonButton>
         </div>
 
         {/* Mobile right */}
         <div className="flex items-center gap-2 lg:hidden">
-          <NeonButton href={PLAY_STORE_URL} size="sm" icon={<PlayIcon className="w-4 h-4" />}>
+          <NeonButton href={storeUrl} size="sm" icon={<PlayIcon className="w-4 h-4" />}>
             Get it
           </NeonButton>
           <button
@@ -130,7 +132,7 @@ export default function Navbar() {
             </ul>
             <div className="mt-2 flex items-center justify-between border-t border-white/10 px-2 pt-3">
               <SocialLinks iconClass="w-6 h-6" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-snow-dim">Free on Android</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-snow-dim">Free on Android &amp; iOS</span>
             </div>
           </motion.div>
         )}

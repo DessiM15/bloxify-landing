@@ -73,7 +73,7 @@ export default function PressKit() {
             <dl className="space-y-3 text-sm">
               <div>
                 <dt className="text-cream/50">Platform</dt>
-                <dd className="text-cream font-semibold">Android (Google Play)</dd>
+                <dd className="text-cream font-semibold">Android (Google Play) &amp; iOS (App Store)</dd>
               </div>
               <div>
                 <dt className="text-cream/50">Launch Date</dt>
