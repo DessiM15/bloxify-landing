@@ -35,7 +35,7 @@ interface DownloadButtonsProps {
 
 const badgeLinkCls =
   "inline-block rounded-lg transition-transform duration-200 hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-cyan";
-const badgeImgCls = "h-[54px] w-auto drop-shadow-[0_0_16px_rgba(53,232,255,0.35)]";
+const badgeImgCls = "h-11 w-auto sm:h-[54px] drop-shadow-[0_0_16px_rgba(53,232,255,0.35)]";
 
 export default function DownloadButtons({ align = "center" }: DownloadButtonsProps) {
   const alignCls = align === "start" ? "items-center lg:items-start" : "items-center";
@@ -46,12 +46,12 @@ export default function DownloadButtons({ align = "center" }: DownloadButtonsPro
       <NeonButton href={primaryUrl} icon={<PlayIcon className="w-6 h-6" />}>
         Download Now — Free
       </NeonButton>
-      <div className="flex flex-wrap items-center justify-center gap-4">
+      <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
         <a href={PLAY_STORE_URL} target="_blank" rel="noopener noreferrer" className={badgeLinkCls}>
           <Image
-            src="/images/google-play-badge.png"
+            src="/images/google-play-badge-tight.png"
             alt="Get it on Google Play"
-            width={180}
+            width={181}
             height={54}
             className={badgeImgCls}
           />
