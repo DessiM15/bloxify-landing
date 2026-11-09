@@ -19,14 +19,19 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://bloxify.app"),
   title: "Bloxify — Block Puzzle, Reimagined",
   description:
-    "A premium mobile block puzzle game with adventure mode, daily challenges, and a handcrafted soundtrack. Free on Google Play.",
+    "A premium mobile block puzzle game with adventure mode, daily challenges, and a handcrafted soundtrack. Free on Google Play and the App Store.",
   keywords: [
     "block puzzle",
     "puzzle game",
     "mobile game",
     "android game",
+    "ios game",
+    "iphone game",
     "bloxify",
   ],
+  other: {
+    "apple-itunes-app": "app-id=6792413746",
+  },
   openGraph: {
     title: "Bloxify — Block Puzzle, Reimagined",
     description:
@@ -39,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Bloxify — Block Puzzle, Reimagined",
     description:
-      "A premium mobile block puzzle game. Free on Google Play.",
+      "A premium mobile block puzzle game. Free on Google Play and the App Store.",
   },
   icons: {
     icon: [
@@ -85,6 +90,8 @@ const jsonLd = {
         "https://www.tiktok.com/@bloxify.app",
         "https://www.facebook.com/share/1E2u9jExgV/?mibextid=wwXIfr",
         "https://discord.gg/wJM2JcgC",
+        "https://play.google.com/store/apps/details?id=app.bloxify",
+        "https://apps.apple.com/app/id6792413746",
       ],
     },
     {

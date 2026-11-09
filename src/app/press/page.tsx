@@ -91,6 +91,27 @@ export default function PressKit() {
                 <dt className="text-cream/50">Price</dt>
                 <dd className="text-cream font-semibold">Free to play</dd>
               </div>
+              <div>
+                <dt className="text-cream/50">Download</dt>
+                <dd className="text-cream font-semibold flex flex-col gap-1">
+                  <a
+                    href="https://play.google.com/store/apps/details?id=app.bloxify"
+                    className="underline underline-offset-2 hover:text-coral transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Google Play
+                  </a>
+                  <a
+                    href="https://apps.apple.com/app/id6792413746"
+                    className="underline underline-offset-2 hover:text-coral transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    App Store
+                  </a>
+                </dd>
+              </div>
             </dl>
           </div>
         </div>

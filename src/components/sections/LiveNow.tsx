@@ -9,7 +9,7 @@ import NeonBlocks, { type BlockSpec } from "../ui/NeonBlocks";
 import Text3D from "../ui/Text3D";
 import DownloadButtons, { PLAY_STORE_URL } from "../ui/DownloadButtons";
 
-const SHARE_URL = "https://bloxify.app/#countdown";
+const SHARE_URL = "https://bloxify.app/";
 const SHARE_TEXT = "Bloxify is LIVE! Block puzzle, reimagined. Download now!";
 
 const CONFETTI: BlockSpec[] = [
